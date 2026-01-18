@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аптечная полка | Вход</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <button class="nav-link" id="forgotPasswordLink">
+                <i class="fas fa-key"></i> Забыли пароль?
+            </button>
+            <button class="nav-link" id="registerLink">
+                <i class="fas fa-user-plus"></i> Создать аптечку
+            </button>
+        </div>
+        
+        <div class="forms-wrapper" id="formsWrapper">
+            <!-- Форма входа -->
+            <form class="form" id="loginForm">
+                <h2 class="form-title">Вход в "Аптечную полку"</h2>
+                <p class="form-subtitle">Введите ваши учетные данные для доступа к вашей аптечке</p>
+                
+                <div id="loginMessage" class="message"></div>
+                
+                <div class="input-group">
+                    <label for="loginEmail">Электронная почта или телефон</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="loginEmail" placeholder="example@mail.ru или +79991234567" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="loginPassword">Пароль</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="loginPassword" placeholder="Введите ваш пароль" required>
+                    </div>
+                </div>
+                
+                <div class="remember-group">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Запомнить меня</label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="loginBtn">
+                    <span>Открыть мою аптечку</span>
+                </button>
+
+            </form>
+            
+            <!-- Форма регистрации -->
+            <form class="form" id="registerForm">
+                <h2 class="form-title">Регистрация</h2>
+                <p class="form-subtitle">Создайте учетную запись для управления вашей аптечкой</p>
+                
+                <div id="registerMessage" class="message"></div>
+                
+                <div class="input-group">
+                    <label for="firstName">Имя</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="firstName" placeholder="Иван" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="lastName">Фамилия</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="lastName" placeholder="Иванов" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="registerPhone">Номер телефона</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-phone input-icon"></i>
+                        <input type="tel" id="registerPhone" placeholder="+79991234567" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="registerEmail">Электронная почта</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="registerEmail" placeholder="example@mail.ru" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="registerPassword">Пароль</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="registerPassword" placeholder="Не менее 8 символов" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="confirmPassword">Повторите пароль</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="confirmPassword" placeholder="Повторите ваш пароль" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="registerBtn">
+                    <span>Зарегистрироваться</span>
+                </button>
+                
+                <button type="button" class="btn btn-secondary" id="backToLoginFromRegister">
+                    <i class="fas fa-arrow-left"></i> Назад ко входу
+                </button>
+            </form>
+            
+            <!-- Форма восстановления пароля -->
+            <form class="form" id="forgotPasswordForm">
+                <h2 class="form-title">Восстановление пароля</h2>
+                <p class="form-subtitle">Введите email, указанный при регистрации</p>
+                
+                <div id="forgotMessage" class="message"></div>
+                
+                <div class="input-group">
+                    <label for="forgotEmail">Электронная почта</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="forgotEmail" placeholder="example@mail.ru" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="sendCodeBtn">
+                    <span>Отправить код</span>
+                </button>
+                
+                <button type="button" class="btn btn-secondary" id="backToLoginFromForgot">
+                    <i class="fas fa-arrow-left"></i> Назад ко входу
+                </button>
+            </form>
+            
+            <!-- Форма подтверждения кода (общая для регистрации и восстановления) -->
+            <form class="form" id="verifyCodeForm">
+                <h2 class="form-title">Подтверждение</h2>
+                <p class="form-subtitle" id="codeSubtitle">Введите 6-значный код, отправленный на вашу почту</p>
+                
+                <div id="codeMessage" class="message"></div>
+                
+                <div class="input-group">
+                    <label for="codeDigits">Код подтверждения</label>
+                    <div class="code-inputs" id="codeInputsContainer">
+                        <!-- JavaScript сгенерирует 6 полей для ввода -->
+                    </div>
+                </div>
+                
+                <div class="input-group" style="text-align: center; margin-top: 15px;">
+                    <p id="timerText" style="color: #7f8c8d; font-size: 14px;">
+                        Отправить код повторно можно через <span id="countdown">60</span> сек.
+                    </p>
+                    <button type="button" class="nav-link" id="resendCodeBtn" style="margin-top: 5px;" disabled>
+                        Отправить код повторно
+                    </button>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="verifyCodeBtn">
+                    <span>Подтвердить код</span>
+                </button>
+                
+                <button type="button" class="btn btn-secondary" id="backToPreviousForm">
+                    <i class="fas fa-arrow-left"></i> Назад
+                </button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
