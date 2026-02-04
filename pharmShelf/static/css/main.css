@@ -1,0 +1,657 @@
+/* ============================================
+   ОБЪЕДИНЕННЫЙ MAIN.CSS - все стили проекта
+   ============================================ */
+
+/* 1. ОСНОВНЫЕ СТИЛИ И СБРОС */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: #f5f9fc;
+    color: #333;
+}
+
+/* 2. HEADER СТИЛИ */
+.site-header {
+    background: white;
+    border-bottom: 1px solid #eaeaea;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.site-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.logo i.fa-pills {
+    font-size: 28px;
+    color: #3498db;
+}
+
+.main-nav {
+    display: flex;
+    gap: 25px;
+}
+
+.site-header .nav-link {
+    color: #3498db;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    font-size: 15px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.site-header .nav-link:hover,
+.site-header .nav-link.active {
+    background-color: #f0f7ff;
+    color: #1a5276;
+}
+
+.user-menu {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.user-avatar, .logout-btn {
+    color: #3498db;
+    font-size: 20px;
+    text-decoration: none;
+    padding: 5px;
+}
+
+/* 3. FOOTER СТИЛИ */
+.site-footer {
+    background: #2c3e50;
+    color: white;
+    padding: 30px 0 20px;
+    margin-top: auto;
+    width: 100%;
+}
+
+.site-footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 20px;
+}
+
+.footer-logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.footer-tagline {
+    font-style: italic;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.footer-disclaimer {
+    font-size: 12px;
+    opacity: 0.8;
+    line-height: 1.4;
+}
+
+.footer-section h4 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.footer-section a {
+    display: block;
+    color: #ddd;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+}
+
+/* 4. ОБЩИЕ КЛАССЫ */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.main-content {
+    flex: 1;
+}
+
+/* 5. СТИЛИ ДЛЯ ФОРМ АВТОРИЗАЦИИ (из style.css) */
+.auth-container {
+    width: 100%;
+    max-width: 440px;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(41, 128, 185, 0.15);
+    overflow: hidden;
+    position: relative;
+    margin: 30px auto;
+}
+
+.auth-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 22px 28px;
+    background-color: #f8fdff;
+    border-bottom: 1px solid #e6f2fb;
+}
+
+.forms-wrapper {
+    position: relative;
+    height: 560px;
+    overflow: hidden;
+}
+
+.form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    background-color: white;
+}
+
+/* Позиции форм */
+#loginForm { transform: translateX(0); }
+#registerForm { transform: translateX(100%); }
+#forgotPasswordForm { transform: translateX(-100%); }
+#verifyCodeForm { transform: translateX(100%); z-index: 5; }
+
+/* Активное состояние форм */
+.forms-wrapper.register-active #loginForm,
+.forms-wrapper.forgot-active #loginForm {
+    transform: translateX(-100%);
+}
+
+.forms-wrapper.register-active #registerForm {
+    transform: translateX(0);
+}
+
+.forms-wrapper.forgot-active #forgotPasswordForm {
+    transform: translateX(0);
+}
+
+.forms-wrapper.code-active #verifyCodeForm {
+    transform: translateX(0);
+}
+
+.forms-wrapper.code-active #registerForm,
+.forms-wrapper.code-active #forgotPasswordForm {
+    transform: translateX(-100%);
+}
+
+/* Элементы форм */
+.form-title {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.form-subtitle {
+    color: #7f8c8d;
+    margin-bottom: 28px;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+input {
+    width: 100%;
+    padding: 14px 14px 14px 42px;
+    border: 1.5px solid #e0e6eb;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: all 0.3s;
+    color: #2c3e50;
+}
+
+input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #95a5a6;
+    font-size: 17px;
+}
+
+.remember-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.remember-group input {
+    width: auto;
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+/* Кнопки форм */
+.btn {
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+    margin-top: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+.btn-secondary {
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    border: 1.5px solid #e0e6eb;
+    margin-top: 15px;
+}
+
+.btn-secondary:hover {
+    background-color: #e9ecef;
+}
+
+/* Иконка загрузки */
+.fa-spinner {
+    margin-right: 8px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Сообщения */
+.message {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Стили для поля кода */
+.code-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.code-input {
+    width: 55px;
+    height: 60px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 0;
+    border: 2px solid #e0e6eb;
+}
+
+.code-input:focus {
+    border-color: #3498db;
+}
+
+/* 6. СТИЛИ ЛЕНДИНГА (из main.css) */
+/* Герой-секция */
+.hero {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    padding: 80px 20px;
+    text-align: center;
+    border-radius: 0 0 30px 30px;
+    margin-bottom: 60px;
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    color: #1a237e;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #455a64;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-hero {
+    padding: 16px 35px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-primary-hero {
+    background: #3498db;
+    color: white;
+    border: none;
+}
+
+.btn-primary-hero:hover {
+    background: #2980b9;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(52, 152, 219, 0.2);
+}
+
+.btn-secondary-hero {
+    background: white;
+    color: #3498db;
+    border: 2px solid #3498db;
+}
+
+.btn-secondary-hero:hover {
+    background: #f8fdff;
+    transform: translateY(-3px);
+}
+
+/* Блоки преимуществ */
+.features {
+    max-width: 1200px;
+    margin: 0 auto 80px;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 50px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    color: #3498db;
+    margin-bottom: 20px;
+}
+
+.feature-title {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.feature-description {
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+/* Как это работает */
+.how-it-works {
+    background: #f8fdff;
+    padding: 60px 20px;
+    border-radius: 30px;
+    margin-bottom: 80px;
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.step {
+    text-align: center;
+    flex: 1;
+    min-width: 250px;
+}
+
+.step-number {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: #3498db;
+    color: white;
+    border-radius: 50%;
+    line-height: 50px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Финальный призыв к действию */
+.final-cta {
+    text-align: center;
+    padding: 0 20px 80px;
+}
+
+.final-cta h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.final-cta p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    max-width: 700px;
+    margin: 0 auto 40px;
+}
+
+/* 7. АДАПТИВНОСТЬ */
+@media (max-width: 768px) {
+    .main-nav {
+        gap: 15px;
+        font-size: 14px;
+    }
+
+    .logo-text {
+        display: none;
+    }
+
+    .site-footer .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-section {
+        margin-bottom: 30px;
+    }
+
+    /* Адаптивность форм */
+    .auth-container {
+        border-radius: 12px;
+    }
+
+    .auth-header {
+        padding: 18px 20px;
+    }
+
+    .form {
+        padding: 25px;
+    }
+
+    .code-input {
+        width: 45px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .forms-wrapper {
+        height: 520px;
+    }
+
+    /* Адаптивность лендинга */
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-hero {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .step {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .filter-btn {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    .med-name {
+        font-size: 16px;
+    }
+}

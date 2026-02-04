@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аптечная полка | Учет домашних лекарств</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="landing-page">
+    <!-- Хедер -->
+    <header class="site-header">
+        <div class="container">
+            <a href="/" class="logo">
+                <i class="fas fa-pills"></i>
+                <span class="logo-text">Аптечная полка</span>
+            </a>
+
+            <!-- Навигация для неавторизованных -->
+            <nav class="main-nav">
+                <a href="#features" class="nav-link">Возможности</a>
+                <a href="#how-it-works" class="nav-link">Как это работает</a>
+                <a href="/login/" class="nav-link">Войти</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Герой-секция -->
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero-title">Ваша аптечка — под контролем</h1>
+                <p class="hero-subtitle">
+                    Учет домашних лекарств, напоминания о сроке годности и возможность найти нужный препарат у других людей в вашем городе.
+                    Больше никаких срочных походов в аптеку ночью!
+                </p>
+
+                <div class="cta-buttons">
+                    <a href="/login/" class="btn-hero btn-primary-hero">
+                        <i class="fas fa-sign-in-alt"></i> Начать использовать
+                    </a>
+                    <a href="#how-it-works" class="btn-hero btn-secondary-hero">
+                        <i class="fas fa-play-circle"></i> Как это работает
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Преимущества -->
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title">Что вы получаете</h2>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-list-check"></i>
+                        </div>
+                        <h3 class="feature-title">Учет лекарств</h3>
+                        <p class="feature-description">
+                            Создайте цифровой список всех препаратов в вашей домашней аптечке.
+                            Добавляйте лекарства из общего каталога одним кликом.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 class="feature-title">Контроль сроков</h3>
+                        <p class="feature-description">
+                            Система предупредит вас об истечении срока годности заранее.
+                            Никаких неожиданностей с просроченными лекарствами.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 class="feature-title">Поиск у других</h3>
+                        <p class="feature-description">
+                            Нужен препарат, которого нет дома? Найдите его у других пользователей поблизости
+                            и договоритесь о встрече.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Как это работает -->
+        <section id="how-it-works" class="how-it-works">
+            <div class="container">
+                <h2 class="section-title">Как это работает</h2>
+
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Регистрация</h3>
+                        <p>Создайте аккаунт, указав email и телефон</p>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Добавьте лекарства</h3>
+                        <p>Выберите из каталога или добавьте свои препараты</p>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Настройте видимость</h3>
+                        <p>Решите, какие лекарства видны другим пользователям</p>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Находите и делитесь</h3>
+                        <p>Ищите нужные препараты или делитесь своими</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Финальный призыв к действию -->
+        <section class="final-cta">
+            <div class="container">
+                <h2>Готовы привести аптечку в порядок?</h2>
+                <p>
+                    Присоединяйтесь к сообществу, которое уже контролирует свои лекарства
+                </p>
+                <a href="/login/" class="btn-hero btn-primary-hero">
+                    <i class="fas fa-user-plus"></i> Создать бесплатный аккаунт
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Футер -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-section">
+                <div class="footer-logo">Аптечная полка</div>
+                <p class="footer-tagline">Все ваши лекарства под контролем</p>
+                <p class="footer-disclaimer">
+                    Сервис предназначен для учета домашних лекарств.<br>
+                    Не является медицинской рекомендацией.
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Информация</h4>
+                <a href="/about/">О проекте</a>
+                <a href="/help/">Помощь</a>
+                <a href="/contacts/">Контакты</a>
+            </div>
+
+            <div class="footer-section">
+                <h4>Правовая информация</h4>
+                <a href="/privacy/">Конфиденциальность</a>
+                <a href="/terms/">Условия использования</a>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Аптечная полка. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
