@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Аптечная полка | Регистрация{% endblock %}
+
+{% block body_class %}auth-page{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-header">
+        <h2>Создание аккаунта</h2>
+    </div>
+    
+    <div class="forms-wrapper">
+        <!-- Форма регистрации -->
+        <div id="registerForm" class="form active-form">
+            <h3 class="form-title">Регистрация</h3>
+            <p class="form-subtitle">Заполните все поля для создания аккаунта</p>
+            
+            <div id="registerMessage" class="message"></div>
+            
+            <form id="registerFormElement" method="post" action="/register/">
+                {% csrf_token %}
+                
+                <div class="input-row">
+                    <div class="input-group half-width">
+                        <label for="firstName">Имя</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" id="firstName" name="first_name" placeholder="Иван" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group half-width">
+                        <label for="lastName">Фамилия</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" id="lastName" name="last_name" placeholder="Иванов" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="registerEmail">Электронная почта</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="registerEmail" name="email" placeholder="example@mail.ru" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="phone">Номер телефона</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-phone input-icon"></i>
+                        <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="snils">СНИЛС</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-id-card input-icon"></i>
+                        <input type="text" id="snils" name="snils" placeholder="123-456-789 00" required>
+                    </div>
+                    <small class="input-hint">Формат: 123-456-789 00</small>
+                </div>
+                
+                <div class="input-group">
+                    <label for="registerPassword">Пароль</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="registerPassword" name="password" placeholder="Минимум 8 символов" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="confirmPassword">Повторите пароль</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="confirmPassword" name="confirm_password" placeholder="Введите пароль еще раз" required>
+                    </div>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agreeTerms" name="agree_terms" required>
+                    <label for="agreeTerms">Я принимаю <a href="/terms/" target="_blank">условия использования</a> и <a href="/privacy/" target="_blank">политику конфиденциальности</a></label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i> Зарегистрироваться
+                </button>
+                
+                <button type="button" class="btn btn-secondary">
+                    <i class="fas fa-sign-in-alt"></i> Уже есть аккаунт? Войти
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

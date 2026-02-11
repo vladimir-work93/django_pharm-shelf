@@ -1,173 +1,61 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Аптечная полка | Главная{% endblock %}
+{% block title %}Аптечная полка | Вход в систему{% endblock %}
+
+{% block body_class %}auth-page{% endblock %}
 
 {% block content %}
-<div class="landing-container">
-    <!-- Левая колонка: Информация -->
-    <div class="landing-info">
-        <h1 class="landing-title">Аптечная полка</h1>
-        <p class="landing-subtitle">Умный учет домашних лекарств</p>
-
-        <div class="features">
-            <div class="feature">
-                <i class="fas fa-pills"></i>
-                <h3>Ведите учет</h3>
-                <p>Создайте цифровую аптечку со всеми вашими лекарствами</p>
-            </div>
-            <div class="feature">
-                <i class="fas fa-calendar-check"></i>
-                <h3>Контролируйте сроки</h3>
-                <p>Никогда не пропустите окончание срока годности</p>
-            </div>
-            <div class="feature">
-                <i class="fas fa-search"></i>
-                <h3>Находите у других</h3>
-                <p>Ищите нужные лекарства у пользователей в вашем городе</p>
-            </div>
-        </div>
-
-        <div class="stats">
-            <div class="stat">
-                <span class="stat-number">1,200+</span>
-                <span class="stat-label">пользователей</span>
-            </div>
-            <div class="stat">
-                <span class="stat-number">5,400+</span>
-                <span class="stat-label">лекарств в каталоге</span>
-            </div>
-        </div>
+<div class="auth-container">
+    <div class="auth-header">
+        <h2>Добро пожаловать!</h2>
     </div>
-
-    <!-- Правая колонка: Формы авторизации -->
-    <div class="auth-wrapper">
-        <div class="auth-container">
-            <!-- Ваши существующие формы (без изменений) -->
-            <div class="auth-header">
-                <button class="nav-link" id="forgotPasswordLink">
+    
+    <div class="forms-wrapper">
+        <!-- Форма входа -->
+        <div id="loginForm" class="form active-form">
+            <h3 class="form-title">Вход в систему</h3>
+            <p class="form-subtitle">Введите ваши данные для входа</p>
+            
+            <div id="loginMessage" class="message"></div>
+            
+            <form id="loginFormElement" method="post" action="/login/">
+                {% csrf_token %}
+                
+                <div class="input-group">
+                    <label for="loginEmail">Электронная почта</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="loginEmail" name="email" placeholder="example@mail.ru">
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="loginPassword">Пароль</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="loginPassword" name="password">
+                    </div>
+                </div>
+                
+                <div class="remember-group">
+                    <input type="checkbox" id="rememberMe" name="remember">
+                    <label for="rememberMe">Запомнить меня</label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+                
+                <button type="button" class="btn btn-secondary">
+                    <i class="fas fa-user-plus"></i> Нет аккаунта? Зарегистрироваться
+                </button>
+                
+                <button type="button" class="btn btn-secondary">
                     <i class="fas fa-key"></i> Забыли пароль?
                 </button>
-                <button class="nav-link" id="registerLink">
-                    <i class="fas fa-user-plus"></i> Создать аптечку
-                </button>
-            </div>
-
-            <div class="forms-wrapper" id="formsWrapper">
-                <!-- Форма входа (ваш существующий код) -->
-                <form class="form" id="loginForm">
-                    <!-- ... ваша форма входа ... -->
-                </form>
-
-                <!-- Форма регистрации (ваш существующий код) -->
-                <form class="form" id="registerForm">
-                    <!-- ... ваша форма регистрации ... -->
-                </form>
-
-                <!-- Форма восстановления (ваш существующий код) -->
-                <form class="form" id="forgotPasswordForm">
-                    <!-- ... ваша форма восстановления ... -->
-                </form>
-
-                <!-- Форма кода (ваш существующий код) -->
-                <form class="form" id="verifyCodeForm">
-                    <!-- ... ваша форма кода ... -->
-                </form>
-            </div>
+            </form>
         </div>
     </div>
 </div>
-{% endblock %}
-
-{% block extra_css %}
-<style>
-.landing-container {
-    display: flex;
-    min-height: calc(100vh - 140px);
-    padding: 40px 20px;
-    max-width: 1400px;
-    margin: 0 auto;
-    gap: 60px;
-}
-
-.landing-info {
-    flex: 1;
-    padding: 40px 0;
-}
-
-.landing-title {
-    font-size: 48px;
-    color: #2c3e50;
-    margin-bottom: 10px;
-}
-
-.landing-subtitle {
-    font-size: 20px;
-    color: #7f8c8d;
-    margin-bottom: 40px;
-}
-
-.features {
-    display: grid;
-    gap: 30px;
-    margin-bottom: 50px;
-}
-
-.feature {
-    background: #f8f9fa;
-    padding: 25px;
-    border-radius: 12px;
-    border-left: 4px solid #3498db;
-}
-
-.feature i {
-    font-size: 32px;
-    color: #3498db;
-    margin-bottom: 15px;
-}
-
-.feature h3 {
-    margin-bottom: 10px;
-    color: #2c3e50;
-}
-
-.stats {
-    display: flex;
-    gap: 40px;
-}
-
-.stat {
-    text-align: center;
-}
-
-.stat-number {
-    display: block;
-    font-size: 32px;
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-.stat-label {
-    color: #7f8c8d;
-    font-size: 14px;
-}
-
-.auth-wrapper {
-    flex: 0 0 450px;
-}
-
-@media (max-width: 1024px) {
-    .landing-container {
-        flex-direction: column;
-        gap: 40px;
-    }
-
-    .auth-wrapper {
-        flex: none;
-        width: 100%;
-        max-width: 450px;
-        margin: 0 auto;
-    }
-}
-</style>
 {% endblock %}

@@ -11,7 +11,7 @@
         <nav class="main-nav">
             {% if user.is_authenticated %}
                 <a href="/catalog/" class="nav-link">
-                    <i class="fas fa-tablets"></i> Каталог
+                    <i class="fas fa-tablets"></i> Все лекарства
                 </a>
                 <a href="/profile/" class="nav-link">
                     <i class="fas fa-user"></i> Профиль
@@ -20,14 +20,14 @@
                     <i class="fas fa-sign-out-alt"></i> Выйти
                 </a>
             {% else %}
-                <a href="/login/" class="nav-link">
+                <a href="/users/login/" class="nav-link">
                     <i class="fas fa-sign-in-alt"></i> Войти
                 </a>
-                <a href="/register/" class="nav-link">
+                <a href="/users/register/" class="nav-link">
                     <i class="fas fa-user-plus"></i> Регистрация
                 </a>
                 <a href="/catalog/" class="nav-link">
-                    <i class="fas fa-tablets"></i> Каталог
+                    <i class="fas fa-tablets"></i> Все лекарства
                 </a>
             {% endif %}
         </nav>
