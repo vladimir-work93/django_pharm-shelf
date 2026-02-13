@@ -1,8 +1,8 @@
 /* ============================================
-   ОБЪЕДИНЕННЫЙ MAIN.CSS - все стили проекта
+   MAIN.CSS - ОБЩИЕ СТИЛИ ПРОЕКТА
    ============================================ */
 
-/* 1. ОСНОВНЫЕ СТИЛИ И СБРОС */
+/* ===== 1. ОСНОВНЫЕ СТИЛИ И СБРОС ===== */
 * {
     margin: 0;
     padding: 0;
@@ -18,7 +18,18 @@ body {
     color: #333;
 }
 
-/* 2. HEADER СТИЛИ */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.main-content {
+    flex: 1;
+}
+
+
+/* ===== 2. HEADER СТИЛИ ===== */
 .site-header {
     background: white;
     border-bottom: 1px solid #eaeaea;
@@ -91,7 +102,8 @@ body {
     padding: 5px;
 }
 
-/* 3. FOOTER СТИЛИ */
+
+/* ===== 3. FOOTER СТИЛИ ===== */
 .site-footer {
     background: #2c3e50;
     color: white;
@@ -159,86 +171,36 @@ body {
     font-size: 14px;
 }
 
-/* 4. ОБЩИЕ КЛАССЫ */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
 
-.main-content {
-    flex: 1;
-}
-
-/* 5. СТИЛИ ДЛЯ ФОРМ АВТОРИЗАЦИИ (из style.css) */
+/* ===== 4. ОБЩИЕ СТИЛИ ДЛЯ ФОРМ ===== */
 .auth-container {
     width: 100%;
-    max-width: 440px;
+    max-width: 480px;
     background-color: white;
     border-radius: 16px;
     box-shadow: 0 15px 35px rgba(41, 128, 185, 0.15);
+    margin: 40px auto;
     overflow: hidden;
-    position: relative;
-    margin: 30px auto;
 }
 
 .auth-header {
-    display: flex;
-    justify-content: space-between;
     padding: 22px 28px;
     background-color: #f8fdff;
     border-bottom: 1px solid #e6f2fb;
 }
 
-.forms-wrapper {
-    position: relative;
-    height: 560px;
-    overflow: hidden;
+.auth-header h2 {
+    color: #2c3e50;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
 }
 
 .form {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     padding: 35px;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     background-color: white;
 }
 
-/* Позиции форм */
-#loginForm { transform: translateX(0); }
-#registerForm { transform: translateX(100%); }
-#forgotPasswordForm { transform: translateX(-100%); }
-#verifyCodeForm { transform: translateX(100%); z-index: 5; }
-
-/* Активное состояние форм */
-.forms-wrapper.register-active #loginForm,
-.forms-wrapper.forgot-active #loginForm {
-    transform: translateX(-100%);
-}
-
-.forms-wrapper.register-active #registerForm {
-    transform: translateX(0);
-}
-
-.forms-wrapper.forgot-active #forgotPasswordForm {
-    transform: translateX(0);
-}
-
-.forms-wrapper.code-active #verifyCodeForm {
-    transform: translateX(0);
-}
-
-.forms-wrapper.code-active #registerForm,
-.forms-wrapper.code-active #forgotPasswordForm {
-    transform: translateX(-100%);
-}
-
-/* Элементы форм */
 .form-title {
     color: #2c3e50;
     margin-bottom: 10px;
@@ -294,6 +256,13 @@ input:focus {
     font-size: 17px;
 }
 
+.input-hint {
+    display: block;
+    margin-top: 5px;
+    color: #95a5a6;
+    font-size: 12px;
+}
+
 .remember-group {
     display: flex;
     align-items: center;
@@ -306,7 +275,34 @@ input:focus {
     transform: scale(1.2);
 }
 
-/* Кнопки форм */
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.checkbox-group input {
+    width: auto;
+    margin-top: 3px;
+}
+
+.checkbox-group label {
+    font-size: 14px;
+    color: #7f8c8d;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+.checkbox-group a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.checkbox-group a:hover {
+    text-decoration: underline;
+}
+
 .btn {
     padding: 15px;
     border: none;
@@ -318,6 +314,8 @@ input:focus {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 8px;
+    width: 100%;
 }
 
 .btn-primary {
@@ -343,18 +341,6 @@ input:focus {
     background-color: #e9ecef;
 }
 
-/* Иконка загрузки */
-.fa-spinner {
-    margin-right: 8px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Сообщения */
 .message {
     padding: 12px;
     border-radius: 8px;
@@ -376,29 +362,18 @@ input:focus {
     border: 1px solid #f5c6cb;
 }
 
-/* Стили для поля кода */
-.code-inputs {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+.fa-spinner {
+    margin-right: 8px;
+    animation: spin 1s linear infinite;
 }
 
-.code-input {
-    width: 55px;
-    height: 60px;
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    padding: 0;
-    border: 2px solid #e0e6eb;
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-.code-input:focus {
-    border-color: #3498db;
-}
 
-/* 6. СТИЛИ ЛЕНДИНГА (из main.css) */
-/* Герой-секция */
+/* ===== 5. ОБЩИЕ СТИЛИ ЛЕНДИНГА ===== */
 .hero {
     background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
     padding: 80px 20px;
@@ -464,7 +439,6 @@ input:focus {
     transform: translateY(-3px);
 }
 
-/* Блоки преимуществ */
 .features {
     max-width: 1200px;
     margin: 0 auto 80px;
@@ -514,7 +488,6 @@ input:focus {
     line-height: 1.6;
 }
 
-/* Как это работает */
 .how-it-works {
     background: #f8fdff;
     padding: 60px 20px;
@@ -550,7 +523,6 @@ input:focus {
     margin-bottom: 20px;
 }
 
-/* Финальный призыв к действию */
 .final-cta {
     text-align: center;
     padding: 0 20px 80px;
@@ -569,7 +541,8 @@ input:focus {
     margin: 0 auto 40px;
 }
 
-/* 7. АДАПТИВНОСТЬ */
+
+/* ===== 6. АДАПТИВНОСТЬ (ОБЩАЯ) ===== */
 @media (max-width: 768px) {
     .main-nav {
         gap: 15px;
@@ -589,30 +562,15 @@ input:focus {
         margin-bottom: 30px;
     }
 
-    /* Адаптивность форм */
     .auth-container {
-        border-radius: 12px;
-    }
-
-    .auth-header {
-        padding: 18px 20px;
+        max-width: 90%;
+        margin: 20px auto;
     }
 
     .form {
         padding: 25px;
     }
 
-    .code-input {
-        width: 45px;
-        height: 50px;
-        font-size: 20px;
-    }
-
-    .forms-wrapper {
-        height: 520px;
-    }
-
-    /* Адаптивность лендинга */
     .hero-title {
         font-size: 2rem;
     }
@@ -642,16 +600,19 @@ input:focus {
 }
 
 @media (max-width: 480px) {
-    .header h1 {
-        font-size: 24px;
+    .hero-title {
+        font-size: 1.8rem;
     }
 
-    .filter-btn {
-        padding: 10px 15px;
-        font-size: 14px;
+    .section-title {
+        font-size: 1.6rem;
     }
 
-    .med-name {
-        font-size: 16px;
+    .auth-header h2 {
+        font-size: 20px;
+    }
+
+    .form-title {
+        font-size: 22px;
     }
 }

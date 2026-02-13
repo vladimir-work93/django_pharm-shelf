@@ -1,0 +1,76 @@
+/* ============================================
+   LOGIN.CSS - СТИЛИ ДЛЯ СТРАНИЦЫ ВХОДА
+   Только для login.html с мультиформами
+   ============================================ */
+
+/* Обертка для мультиформ */
+.forms-wrapper {
+    position: relative;
+    height: 560px;
+    overflow: hidden;
+}
+
+.forms-wrapper .form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    background-color: white;
+}
+
+/* Позиционирование форм */
+#loginForm {
+    transform: translateX(0);
+}
+
+#registerForm {
+    transform: translateX(100%);
+}
+
+#forgotPasswordForm {
+    transform: translateX(-100%);
+}
+
+#verifyCodeForm {
+    transform: translateX(100%);
+    z-index: 5;
+}
+
+/* Активные состояния */
+.forms-wrapper.register-active #loginForm,
+.forms-wrapper.forgot-active #loginForm {
+    transform: translateX(-100%);
+}
+
+.forms-wrapper.register-active #registerForm {
+    transform: translateX(0);
+}
+
+.forms-wrapper.forgot-active #forgotPasswordForm {
+    transform: translateX(0);
+}
+
+.forms-wrapper.code-active #verifyCodeForm {
+    transform: translateX(0);
+}
+
+.forms-wrapper.code-active #registerForm,
+.forms-wrapper.code-active #forgotPasswordForm {
+    transform: translateX(-100%);
+}
+
+/* Адаптивность для login.html */
+@media (max-width: 768px) {
+    .forms-wrapper {
+        height: 520px;
+    }
+
+    .forms-wrapper .form {
+        padding: 25px;
+    }
+}
