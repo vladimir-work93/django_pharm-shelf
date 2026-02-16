@@ -2,7 +2,7 @@
 <!-- Хедер -->
 <header class="site-header">
     <div class="container">
-        <a href="/" class="logo">
+        <a href="{% url 'main' %}" class="logo">
             <i class="fas fa-pills"></i>
             <span class="logo-text">Аптечная полка</span>
         </a>
@@ -10,7 +10,7 @@
         <!-- Навигация для всех пользователей -->
         <nav class="main-nav">
             {% if user.is_authenticated %}
-                <a href="/catalog/" class="nav-link">
+                <a href="{% url 'catalog' %}" class="nav-link">
                     <i class="fas fa-tablets"></i> Все лекарства
                 </a>
                 <a href="/profile/" class="nav-link">
@@ -20,13 +20,13 @@
                     <i class="fas fa-sign-out-alt"></i> Выйти
                 </a>
             {% else %}
-                <a href="/users/login/" class="nav-link">
+                <a href="{% url 'login' %}" class="nav-link">
                     <i class="fas fa-sign-in-alt"></i> Войти
                 </a>
-                <a href="/users/register/" class="nav-link">
+                <a href="{% url 'register' %}" class="nav-link">
                     <i class="fas fa-user-plus"></i> Регистрация
                 </a>
-                <a href="/catalog/" class="nav-link">
+                <a href="{% url 'catalog' %}" class="nav-link">
                     <i class="fas fa-tablets"></i> Все лекарства
                 </a>
             {% endif %}
