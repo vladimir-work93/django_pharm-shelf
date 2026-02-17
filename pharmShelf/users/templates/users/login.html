@@ -49,11 +49,11 @@
                     <i class="fas fa-sign-in-alt"></i> Войти
                 </button>
                 
-                <a href="{% url 'register' %}" class="btn btn-secondary">
+                <a href="{% url 'users:register' %}" class="btn btn-secondary">
                     <i class="fas fa-user-plus"></i> Нет аккаунта? Зарегистрироваться
                 </a>
                 
-                <a href="{% url 'forgot_password' %}" class="btn btn-secondary">
+                <a href="{% url 'users:forgot_password' %}" class="btn btn-secondary">
                     <i class="fas fa-key"></i> Забыли пароль?
                 </a>
             </form>
