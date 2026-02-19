@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
+from django.core.validators import EmailValidator
 
 # Create your models here.
 
@@ -15,16 +16,30 @@ class User(AbstractUser):
         message='СНИЛС должен быть в формате: ХХХ-ХХХ-ХХХ ХХ'
     )
 
+    username = None
+
+    email = models.EmailField(
+        max_length=254,
+        verbose_name='Электронная почта',
+        unique=True,
+        blank=False,
+        null=False,
+        help_text='Формат: example@mail.ru',
+        default='example@mail.ru',
+        validators=[EmailValidator()],
+    )
+
     phone = models.CharField(
         max_length=12,  # РФ номер: +7XXXXXXXXXX (12 символов с плюсом)
         verbose_name='Телефон',
         unique=True,  # Обычно телефон должен быть уникальным
         blank=False,  # Явно указываем, что поле не может быть пустым в формах
         null=False,  # В базе данных NOT NULL
-        help_text = 'Формат: +7XXXXXXXXXX',  # Подсказка для пользователя
+        help_text='Формат: +7XXXXXXXXXX',  # Подсказка для пользователя
         default='+70000000000',  # Значение по умолчанию
-        validators = [phone_validator],
+        validators=[phone_validator],
     )
+
     snils = models.CharField(
         max_length=14,  # СНИЛС: ХХХ-ХХХ-ХХХ ХХ (14 символов с дефисами и пробелом)
         verbose_name='СНИЛС',
@@ -35,3 +50,6 @@ class User(AbstractUser):
         default='000-000-000 00',  # Значение по умолчанию
         validators=[snils_validator],
     )
+
+    USERNAME_FIELD = 'email' # Замена поля аутентификации на email
+    REQUIRED_FIELDS = []

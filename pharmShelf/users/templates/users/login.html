@@ -21,22 +21,22 @@
             
             <div id="loginMessage" class="message"></div>
             
-            <form id="loginFormElement" method="post" action="/login/">
+            <form id="loginFormElement" method="post" action="{% url 'users:login' %}">
                 {% csrf_token %}
                 
                 <div class="input-group">
-                    <label for="loginEmail">Электронная почта</label>
+                    <label for="{{ form.username.id_for_label }}">Электронная почта</label>
                     <div class="input-with-icon">
                         <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" id="loginEmail" name="email" placeholder="example@mail.ru">
+                        {{ form.username }}
                     </div>
                 </div>
-                
+
                 <div class="input-group">
-                    <label for="loginPassword">Пароль</label>
+                    <label for="{{ form.password.id_for_label }}">Пароль</label>
                     <div class="input-with-icon">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" id="loginPassword" name="password">
+                        {{ form.password }}
                     </div>
                 </div>
                 
