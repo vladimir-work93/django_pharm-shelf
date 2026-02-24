@@ -18,8 +18,26 @@
         <div id="loginForm" class="form active-form">
             <h3 class="form-title">Вход в систему</h3>
             <p class="form-subtitle">Введите ваши данные для входа</p>
-            
-            <div id="loginMessage" class="message"></div>
+
+            <!-- Сообщения об ошибках -->
+            {% if form.errors %}
+                <ul id="registerMessage" class="message">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <!-- Успешные сообщения -->
+            {% if messages %}
+                <ul id="infoMessage" class="message success">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
             
             <form id="loginFormElement" method="post" action="{% url 'users:login' %}">
                 {% csrf_token %}

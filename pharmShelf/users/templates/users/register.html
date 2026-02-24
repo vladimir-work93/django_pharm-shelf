@@ -18,68 +18,77 @@
         <div id="registerForm" class="form active-form">
             <h3 class="form-title">Регистрация</h3>
             <p class="form-subtitle">Заполните все поля для создания аккаунта</p>
+
+            <!-- Сообщения об ошибках -->
+            {% if form.errors %}
+                <ul id="registerMessage" class="message">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
             
-            <div id="registerMessage" class="message"></div>
-            
-            <form id="registerFormElement" method="post" action="/register/">
+            <form id="registerFormElement" method="post" action="{% url 'users:register' %}">
                 {% csrf_token %}
                 
                 <div class="input-row">
                     <div class="input-group half-width">
-                        <label for="firstName">Имя</label>
+                        <label for="{{ form.first_name.id_for_label }}">Имя</label>
                         <div class="input-with-icon">
                             <i class="fas fa-user input-icon"></i>
-                            <input type="text" id="firstName" name="first_name" placeholder="Иван" required>
+                            {{ form.first_name }}
                         </div>
                     </div>
                     
                     <div class="input-group half-width">
-                        <label for="lastName">Фамилия</label>
+                        <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
                         <div class="input-with-icon">
                             <i class="fas fa-user input-icon"></i>
-                            <input type="text" id="lastName" name="last_name" placeholder="Иванов" required>
+                            {{ form.last_name }}
                         </div>
                     </div>
                 </div>
                 
                 <div class="input-group">
-                    <label for="registerEmail">Электронная почта</label>
+                    <label for="{{ form.email.id_for_label }}">Электронная почта</label>
                     <div class="input-with-icon">
                         <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" id="registerEmail" name="email" placeholder="example@mail.ru" required>
+                        {{ form.email }}
                     </div>
                 </div>
                 
                 <div class="input-group">
-                    <label for="phone">Номер телефона</label>
+                    <label for="{{ form.phone.id_for_label }}">Номер телефона</label>
                     <div class="input-with-icon">
                         <i class="fas fa-phone input-icon"></i>
-                        <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67" required>
+                        {{ form.phone }}
                     </div>
                 </div>
                 
                 <div class="input-group">
-                    <label for="snils">СНИЛС</label>
+                    <label for="{{ form.snils.id_for_label }}">СНИЛС</label>
                     <div class="input-with-icon">
                         <i class="fas fa-id-card input-icon"></i>
-                        <input type="text" id="snils" name="snils" placeholder="123-456-789 00" required>
+                        {{ form.snils }}
                     </div>
                     <small class="input-hint">Формат: 123-456-789 00</small>
                 </div>
                 
                 <div class="input-group">
-                    <label for="registerPassword">Пароль</label>
+                    <label for="{{ form.password1.id_for_label }}">Пароль</label>
                     <div class="input-with-icon">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" id="registerPassword" name="password" placeholder="Минимум 8 символов" required>
+                        {{ form.password1 }}
                     </div>
                 </div>
                 
                 <div class="input-group">
-                    <label for="confirmPassword">Повторите пароль</label>
+                    <label for="{{ form.password2.id_for_label }}">Повторите пароль</label>
                     <div class="input-with-icon">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" id="confirmPassword" name="confirm_password" placeholder="Введите пароль еще раз" required>
+                        {{ form.password2 }}
                     </div>
                 </div>
                 
