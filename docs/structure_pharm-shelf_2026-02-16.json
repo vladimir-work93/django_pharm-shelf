@@ -1,0 +1,342 @@
+{
+  "tables": [
+    {
+      "name": "USER_MEDICATIONS",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "id": "wcQdgHSzDMtl8sZxog3t5",
+          "name": "id",
+          "type": "INT",
+          "comment": "",
+          "unique": true,
+          "increment": false,
+          "notNull": true,
+          "primary": true,
+          "default": "",
+          "check": ""
+        },
+        {
+          "id": "B_mH38Caeh-SOGOPftXd2",
+          "name": "production_date",
+          "type": "DATE",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": false,
+          "primary": false,
+          "default": "",
+          "check": ""
+        },
+        {
+          "id": "oy8QmIAxA5klZw5oGtOZb",
+          "name": "expiry_date",
+          "type": "DATE",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": false,
+          "primary": false,
+          "default": "",
+          "check": ""
+        },
+        {
+          "id": "QZ8zk17bkrf0U75o4f97O",
+          "name": "is_searchable",
+          "type": "BOOLEAN",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": false,
+          "primary": false,
+          "default": "false",
+          "check": ""
+        },
+        {
+          "id": "EHkbBjE6D5Lk9gKeCySqG",
+          "name": "user_id",
+          "type": "INT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": ""
+        },
+        {
+          "id": "EHyLCGgHeeKndhQmm9JwT",
+          "name": "medication_id",
+          "type": "INT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": ""
+        }
+      ],
+      "indices": [],
+      "id": "OuWpg7Ayy5YHHPhfZpQEf",
+      "x": 54,
+      "y": 40
+    },
+    {
+      "name": "USERS",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "id": "H5X62HZPe5H5u99Rwmfl_",
+          "name": "id",
+          "type": "INT",
+          "comment": "",
+          "unique": true,
+          "increment": false,
+          "notNull": true,
+          "primary": true,
+          "default": "",
+          "check": ""
+        },
+        {
+          "id": "5TrTS4W0mNRd1_6djZ4Di",
+          "name": "first_name",
+          "type": "VARCHAR",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": false,
+          "primary": false,
+          "default": "",
+          "check": ""
+        },
+        {
+          "id": "wlH_XBg3ZSxYHmCNZWXYs",
+          "name": "last_name",
+          "type": "VARCHAR",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": false,
+          "primary": false,
+          "default": "",
+          "check": ""
+        },
+        {
+          "id": "N28O6ic9YtJbk6B-BNJe-",
+          "name": "email",
+          "type": "VARCHAR",
+          "comment": "",
+          "unique": true,
+          "increment": false,
+          "notNull": false,
+          "primary": false,
+          "default": "",
+          "check": ""
+        },
+        {
+          "id": "Sx1Yyf9fEr-T2b9GSVAZv",
+          "name": "phone",
+          "type": "VARCHAR",
+          "comment": "",
+          "unique": true,
+          "increment": false,
+          "notNull": false,
+          "primary": false,
+          "default": "",
+          "check": ""
+        },
+        {
+          "id": "ehA0l0cvzZllV-x6-ZK5F",
+          "name": "snils",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "size": 0
+        },
+        {
+          "id": "66onyMg5TZlHRKV8ykyVn",
+          "name": "password",
+          "type": "VARCHAR",
+          "comment": "",
+          "unique": true,
+          "increment": false,
+          "notNull": false,
+          "primary": false,
+          "default": "",
+          "check": ""
+        }
+      ],
+      "indices": [],
+      "id": "wtqvIpFff1JUTplZmd3Dr",
+      "x": 509.83581834905283,
+      "y": 48.0199662920153
+    },
+    {
+      "name": "MEDICATIONS",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "id": "CtQQHCvY5Wq1bocGFnBlP",
+          "name": "id",
+          "type": "INT",
+          "comment": "",
+          "unique": true,
+          "increment": false,
+          "notNull": true,
+          "primary": true,
+          "default": "",
+          "check": ""
+        },
+        {
+          "id": "UnEiS033D5jKblzCVzR5y",
+          "name": "name",
+          "type": "VARCHAR",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": false,
+          "primary": false,
+          "default": "",
+          "check": ""
+        },
+        {
+          "id": "MY0CJm5rlj-E_6Eo85CBo",
+          "name": "image_url",
+          "type": "VARCHAR",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": false,
+          "primary": false,
+          "default": "",
+          "check": ""
+        },
+        {
+          "id": "J-nMZaTKcAopvfkMjn4K6",
+          "name": "description",
+          "type": "TEXT",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "size": 0
+        },
+        {
+          "id": "2kyx76gibIDWgLrbvS5QC",
+          "name": "manufacturer_id",
+          "type": "INT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": ""
+        }
+      ],
+      "indices": [],
+      "id": "_V03cerkVd8k8ugLw25-S",
+      "x": 509.8702191019003,
+      "y": 463.72155242814387
+    },
+    {
+      "name": "MANUFACTURERS",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "id": "Wpf-563VkW6hCDP9m-V9W",
+          "name": "id",
+          "type": "INT",
+          "comment": "",
+          "unique": true,
+          "increment": false,
+          "notNull": true,
+          "primary": true,
+          "default": "",
+          "check": ""
+        },
+        {
+          "id": "pJhNekD_II0vrrFcOmec2",
+          "name": "name",
+          "type": "VARCHAR",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": false,
+          "primary": false,
+          "default": "",
+          "check": ""
+        },
+        {
+          "id": "gMBLzZEN02pIbV6oQOYAM",
+          "name": "country",
+          "type": "VARCHAR",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": false,
+          "primary": false,
+          "default": "",
+          "check": ""
+        }
+      ],
+      "indices": [],
+      "id": "adIjte-2JqEEaaP0Zo0p0",
+      "x": 1023.1480617908823,
+      "y": 453.06988202205383
+    }
+  ],
+  "relationships": [
+    {
+      "startTableId": "_V03cerkVd8k8ugLw25-S",
+      "startFieldId": "CtQQHCvY5Wq1bocGFnBlP",
+      "endTableId": "OuWpg7Ayy5YHHPhfZpQEf",
+      "endFieldId": "EHyLCGgHeeKndhQmm9JwT",
+      "cardinality": "one_to_many",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "Medication to User_medications",
+      "id": "bSh0JUtEclz-yWMCrN85i"
+    },
+    {
+      "startTableId": "adIjte-2JqEEaaP0Zo0p0",
+      "startFieldId": "Wpf-563VkW6hCDP9m-V9W",
+      "endTableId": "_V03cerkVd8k8ugLw25-S",
+      "endFieldId": "2kyx76gibIDWgLrbvS5QC",
+      "cardinality": "one_to_many",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "Manufacture to Medications",
+      "id": "9P-ffrOlqA2ymAxLg1xGq"
+    },
+    {
+      "startTableId": "wtqvIpFff1JUTplZmd3Dr",
+      "startFieldId": "H5X62HZPe5H5u99Rwmfl_",
+      "endTableId": "OuWpg7Ayy5YHHPhfZpQEf",
+      "endFieldId": "EHkbBjE6D5Lk9gKeCySqG",
+      "cardinality": "one_to_many",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "User to User_Medications",
+      "id": "H01GVnG5rALDzJbK_C9Kf"
+    }
+  ],
+  "notes": [],
+  "subjectAreas": [],
+  "database": "generic",
+  "types": [],
+  "title": "structure_pharm-shelf"
+}

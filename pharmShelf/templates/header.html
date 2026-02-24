@@ -2,32 +2,29 @@
 <!-- Хедер -->
 <header class="site-header">
     <div class="container">
-        <a href="/" class="logo">
+        <a href="{% url 'main:main' %}" class="logo">
             <i class="fas fa-pills"></i>
             <span class="logo-text">Аптечная полка</span>
         </a>
 
         <!-- Навигация для всех пользователей -->
         <nav class="main-nav">
-            {% if user.is_authenticated %}
-                <a href="/catalog/" class="nav-link">
-                    <i class="fas fa-tablets"></i> Каталог
+            <a href="{% url 'main:catalog' %}" class="nav-link">
+                    <i class="fas fa-tablets"></i> Все лекарства
                 </a>
-                <a href="/profile/" class="nav-link">
+            {% if user.is_authenticated %}
+                <a href="#" class="nav-link">
                     <i class="fas fa-user"></i> Профиль
                 </a>
-                <a href="/logout/" class="nav-link">
+                <a href="{% url 'users:logout' %}" class="nav-link">
                     <i class="fas fa-sign-out-alt"></i> Выйти
                 </a>
             {% else %}
-                <a href="/login/" class="nav-link">
-                    <i class="fas fa-sign-in-alt"></i> Войти
-                </a>
-                <a href="/register/" class="nav-link">
+                <a href="{% url 'users:register' %}" class="nav-link">
                     <i class="fas fa-user-plus"></i> Регистрация
                 </a>
-                <a href="/catalog/" class="nav-link">
-                    <i class="fas fa-tablets"></i> Каталог
+                <a href="{% url 'users:login' %}" class="nav-link">
+                    <i class="fas fa-sign-in-alt"></i> Войти
                 </a>
             {% endif %}
         </nav>

@@ -16,7 +16,7 @@
         </p>
 
         <div class="cta-buttons">
-            <a href="/login/" class="btn-hero btn-primary-hero">
+            <a href="{% url 'users:login' %}" class="btn-hero btn-primary-hero">
                 <i class="fas fa-sign-in-alt"></i> Начать использовать
             </a>
             <a href="#how-it-works" class="btn-hero btn-secondary-hero">
@@ -108,7 +108,7 @@
         <p>
             Присоединяйтесь к сообществу, которое уже контролирует свои лекарства
         </p>
-        <a href="/login/" class="btn-hero btn-primary-hero">
+        <a href="{% url 'users:login' %}" class="btn-hero btn-primary-hero">
             <i class="fas fa-user-plus"></i> Создать бесплатный аккаунт
         </a>
     </div>

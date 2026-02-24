@@ -1,299 +1,298 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Аптечная полка | Каталог{% endblock %}
-
-{% block content %}
-<div class="catalog-container">
-    <!-- Фильтры и поиск -->
-    <div class="catalog-header">
-        <h1>Найти лекарства у других</h1>
-        <p>Пользователи, которые готовы поделиться своими лекарствами</p>
-        
-        <div class="search-filters">
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Название лекарства...">
-            </div>
-            
-            <div class="filters">
-                <select id="cityFilter">
-                    <option value="">Все города</option>
-                    <option value="moscow">Москва</option>
-                    <option value="spb">Санкт-Петербург</option>
-                </select>
-                
-                <select id="formFilter">
-                    <option value="">Все формы</option>
-                    <option value="tablet">Таблетки</option>
-                    <option value="capsule">Капсулы</option>
-                    <option value="solution">Раствор</option>
-                </select>
-                
-                <button class="btn-filter">
-                    <i class="fas fa-filter"></i> Фильтры
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Сетка карточек -->
-    <div class="medications-grid" id="medicationsGrid">
-        {% for medication in user_medications %}
-        <div class="med-card" data-id="{{ medication.id }}">
-            <!-- Заголовок карточки -->
-            <div class="med-header">
-                <h3>{{ medication.medication.name }}</h3>
-                <span class="med-dosage">
-                    {{ medication.medication.dosage_number }} 
-                    {{ medication.medication.dosage_type.type_name }}
-                </span>
-            </div>
-            
-            <!-- Информация о лекарстве -->
-            <div class="med-info">
-                <div class="info-row">
-                    <i class="fas fa-industry"></i>
-                    <span>{{ medication.medication.manufacturer.name }}</span>
-                </div>
-                <div class="info-row">
-                    <i class="fas fa-pills"></i>
-                    <span>{{ medication.medication.release_form.form_name }}</span>
-                </div>
-                <div class="info-row">
-                    <i class="fas fa-box"></i>
-                    <span>{{ medication.units_number }} {{ medication.units_type }}</span>
-                </div>
-                <div class="info-row">
-                    <i class="fas fa-calendar-check"></i>
-                    <span>Годен до: {{ medication.expiry_date|date:"d.m.Y" }}</span>
-                </div>
-            </div>
-            
-            <!-- Владелец -->
-            <div class="med-owner">
-                <div class="owner-avatar">
-                    <i class="fas fa-user-circle"></i>
-                </div>
-                <div class="owner-info">
-                    <strong>{{ medication.user.first_name }} {{ medication.user.last_name }}</strong>
-                    <span>г. Москва</span>
-                </div>
-            </div>
-            
-            <!-- Действия -->
-            <div class="med-actions">
-                <button class="btn-contact" onclick="contactOwner({{ medication.user.id }})">
-                    <i class="fas fa-phone"></i> Связаться
-                </button>
-                <button class="btn-view" onclick="viewDetails({{ medication.id }})">
-                    Подробнее
-                </button>
-            </div>
-        </div>
-        {% empty %}
-        <div class="empty-state">
-            <i class="fas fa-search"></i>
-            <h3>Лекарства не найдены</h3>
-            <p>Попробуйте изменить параметры поиска</p>
-        </div>
-        {% endfor %}
-    </div>
-    
-    <!-- Пагинация -->
-    {% if user_medications.has_other_pages %}
-    <div class="pagination">
-        {% if user_medications.has_previous %}
-        <a href="?page={{ user_medications.previous_page_number }}">&laquo;</a>
-        {% endif %}
-        
-        {% for num in user_medications.paginator.page_range %}
-            {% if user_medications.number == num %}
-            <span class="current">{{ num }}</span>
-            {% else %}
-            <a href="?page={{ num }}">{{ num }}</a>
-            {% endif %}
-        {% endfor %}
-        
-        {% if user_medications.has_next %}
-        <a href="?page={{ user_medications.next_page_number }}">&raquo;</a>
-        {% endif %}
-    </div>
-    {% endif %}
-</div>
-{% endblock %}
+{% block title %}Каталог лекарств | Аптечная полка{% endblock %}
 
 {% block extra_css %}
-<style>
-.catalog-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 30px 20px;
-}
+<link rel="stylesheet" href="{% static 'css/catalog.css' %}">
+{% endblock %}
 
-.catalog-header {
-    margin-bottom: 40px;
-}
+{% block content %}
+<div class="catalog-page">
+    <div class="container">
+        <!-- Заголовок страницы -->
+        <div class="catalog-header">
+            <h1 class="catalog-title">
+                <i class="fas fa-tablets"></i>
+                Каталог лекарственных средств
+            </h1>
+            <p class="catalog-subtitle">
+                Здесь представлены все доступные препараты. Нажмите "Добавить в аптечку", чтобы сохранить лекарство в свой личный список.
+            </p>
+        </div>
 
-.catalog-header h1 {
-    font-size: 36px;
-    color: #2c3e50;
-    margin-bottom: 10px;
-}
+        <!-- Сетка карточек -->
+        <div class="medicines-grid">
+            <!-- Карточка 1: Таблетки -->
+            <div class="medicine-card">
+                <div class="card-header">
+                    <h3 class="medicine-title">Парацетамол</h3>
+                    <span class="medicine-type">таблетки</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Производитель:</span>
+                        <span class="info-value">Фармстандарт</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Страна:</span>
+                        <span class="info-value">Россия</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Описание:</span>
+                        <span class="info-value">Таблетки 500 мг, 20 шт в упаковке. Жаропонижающее и обезболивающее средство.</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
+                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
+                    </button>
+                </div>
+            </div>
 
-.search-filters {
-    background: #f8f9fa;
-    padding: 25px;
-    border-radius: 12px;
-    margin-top: 20px;
-}
+            <!-- Карточка 2: Мазь -->
+            <div class="medicine-card">
+                <div class="card-header">
+                    <h3 class="medicine-title">Троксевазин</h3>
+                    <span class="medicine-type">мазь</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Производитель:</span>
+                        <span class="info-value">Балканфарма</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Страна:</span>
+                        <span class="info-value">Болгария</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Описание:</span>
+                        <span class="info-value">Гель для наружного применения 2%, туба 40 г. При венозной недостаточности, отеках.</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
+                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
+                    </button>
+                </div>
+            </div>
 
-.search-box {
-    position: relative;
-    margin-bottom: 20px;
-}
+            <!-- Карточка 3: Шприцы -->
+            <div class="medicine-card">
+                <div class="card-header">
+                    <h3 class="medicine-title">Шприц инсулиновый</h3>
+                    <span class="medicine-type">шприц</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Производитель:</span>
+                        <span class="info-value">BD Medical</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Страна:</span>
+                        <span class="info-value">США</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Описание:</span>
+                        <span class="info-value">Объем 1 мл, игла 30G, стерильный. Инсулиновый шприц с несъемной иглой.</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
+                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
+                    </button>
+                </div>
+            </div>
 
-.search-box i {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #95a5a6;
-}
+            <!-- Карточка 4: Крем -->
+            <div class="medicine-card">
+                <div class="card-header">
+                    <h3 class="medicine-title">Бепантен</h3>
+                    <span class="medicine-type">крем</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Производитель:</span>
+                        <span class="info-value">Bayer</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Страна:</span>
+                        <span class="info-value">Германия</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Описание:</span>
+                        <span class="info-value">Крем 5%, туба 30 г. Для ухода за кожей, заживления микротрещин, при опрелостях.</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
+                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
+                    </button>
+                </div>
+            </div>
 
-.search-box input {
-    width: 100%;
-    padding: 15px 15px 15px 45px;
-    border: 2px solid #e0e6eb;
-    border-radius: 8px;
-    font-size: 16px;
-}
+            <!-- Карточка 5: Капли -->
+            <div class="medicine-card">
+                <div class="card-header">
+                    <h3 class="medicine-title">Визоптин</h3>
+                    <span class="medicine-type">капли</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Производитель:</span>
+                        <span class="info-value">Ромфарм</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Страна:</span>
+                        <span class="info-value">Румыния</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Описание:</span>
+                        <span class="info-value">Капли глазные 0.5%, флакон 10 мл. Увлажняющие капли при сухости глаз.</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
+                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
+                    </button>
+                </div>
+            </div>
 
-.filters {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
+            <!-- Карточка 6: Ампулы -->
+            <div class="medicine-card">
+                <div class="card-header">
+                    <h3 class="medicine-title">Дексаметазон</h3>
+                    <span class="medicine-type">раствор</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Производитель:</span>
+                        <span class="info-value">КРКА</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Страна:</span>
+                        <span class="info-value">Словения</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Описание:</span>
+                        <span class="info-value">Раствор для инъекций 4 мг/мл, ампулы 1 мл, 5 шт. Противовоспалительное средство.</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
+                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
+                    </button>
+                </div>
+            </div>
 
-.filters select, .btn-filter {
-    padding: 12px 20px;
-    border: 2px solid #e0e6eb;
-    border-radius: 8px;
-    background: white;
-    font-size: 15px;
-    cursor: pointer;
-}
+            <!-- Карточка 7: Пластырь -->
+            <div class="medicine-card">
+                <div class="card-header">
+                    <h3 class="medicine-title">Пластырь бактерицидный</h3>
+                    <span class="medicine-type">пластырь</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Производитель:</span>
+                        <span class="info-value">Хартманн</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Страна:</span>
+                        <span class="info-value">Германия</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Описание:</span>
+                        <span class="info-value">Набор пластырей 6×10 см, 5 шт. Стерильные, с антибактериальной подушечкой.</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
+                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
+                    </button>
+                </div>
+            </div>
 
-.btn-filter {
-    background: #3498db;
-    color: white;
-    border-color: #3498db;
-}
+            <!-- Карточка 8: Сироп -->
+            <div class="medicine-card">
+                <div class="card-header">
+                    <h3 class="medicine-title">Нурофен для детей</h3>
+                    <span class="medicine-type">сироп</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Производитель:</span>
+                        <span class="info-value">Reckitt Benckiser</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Страна:</span>
+                        <span class="info-value">Великобритания</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Описание:</span>
+                        <span class="info-value">Суспензия 100 мг/5 мл, флакон 150 мл. С апельсиновым вкусом, без сахара.</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
+                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
+                    </button>
+                </div>
+            </div>
 
-/* Сетка карточек */
-.medications-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 25px;
-    margin-bottom: 40px;
-}
+            <!-- Карточка 9: Спрей -->
+            <div class="medicine-card">
+                <div class="card-header">
+                    <h3 class="medicine-title">Мирамистин</h3>
+                    <span class="medicine-type">спрей</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Производитель:</span>
+                        <span class="info-value">Инфамед</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Страна:</span>
+                        <span class="info-value">Россия</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Описание:</span>
+                        <span class="info-value">Раствор для местного применения 0.01%, флакон 150 мл. Антисептик широкого спектра.</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
+                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
+                    </button>
+                </div>
+            </div>
 
-.med-card {
-    background: white;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    border: 1px solid #eaeaea;
-    transition: transform 0.3s;
-}
-
-.med-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-}
-
-.med-header {
-    border-bottom: 2px solid #f0f7ff;
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-}
-
-.med-header h3 {
-    color: #2c3e50;
-    margin-bottom: 5px;
-}
-
-.med-dosage {
-    color: #3498db;
-    font-weight: 500;
-}
-
-.info-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-    color: #555;
-}
-
-.info-row i {
-    color: #7f8c8d;
-    width: 20px;
-}
-
-.med-owner {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin: 25px 0;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-}
-
-.owner-avatar i {
-    font-size: 40px;
-    color: #3498db;
-}
-
-.owner-info strong {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.med-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.btn-contact, .btn-view {
-    flex: 1;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 500;
-    cursor: pointer;
-    border: none;
-}
-
-.btn-contact {
-    background: #2ecc71;
-    color: white;
-}
-
-.btn-view {
-    background: #f8f9fa;
-    color: #2c3e50;
-    border: 1px solid #e0e6eb;
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-    .medications-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .filters {
-        flex-direction: column;
-    }
-}
-</style>
+            <!-- Карточка 10: Капсулы -->
+            <div class="medicine-card">
+                <div class="card-header">
+                    <h3 class="medicine-title">Омепразол</h3>
+                    <span class="medicine-type">капсулы</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Производитель:</span>
+                        <span class="info-value">Озон</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Страна:</span>
+                        <span class="info-value">Россия</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Описание:</span>
+                        <span class="info-value">Капсулы 20 мг, 30 шт. Для лечения язвы желудка, гастроэзофагеальной рефлюксной болезни.</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
+                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

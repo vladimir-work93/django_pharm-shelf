@@ -1,0 +1,47 @@
+/* ============================================
+   REGISTER.CSS - СТИЛИ ДЛЯ СТРАНИЦЫ РЕГИСТРАЦИИ
+   Только для register.html
+   ============================================ */
+
+/* Две колонки для имени и фамилии */
+.input-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.half-width {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+/* Специфические стили для формы регистрации */
+#registerForm .input-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#registerForm .half-width {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+/* Дополнительные отступы для страницы регистрации */
+#registerForm .checkbox-group {
+    margin-top: 10px;
+}
+
+/* Адаптивность для register.html */
+@media (max-width: 768px) {
+    .input-row,
+    #registerForm .input-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .half-width,
+    #registerForm .half-width {
+        width: 100%;
+    }
+}
