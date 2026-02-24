@@ -124,6 +124,12 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
+# URL для доступа к медиафайлам через браузер
+MEDIA_URL = '/media/'
+
+# Путь на сервере, где будут храниться загруженные файлы
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
