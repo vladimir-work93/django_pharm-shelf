@@ -22,25 +22,25 @@
         </div>
 
         <!-- Сетка карточек -->
-        <div class="medicines-grid">
-            <!-- Карточка 1: Таблетки -->
-            <div class="medicine-card">
+            <div class="medicines-grid">
+                {% for medication in medications %}
+                    <div class="medicine-card">
                 <div class="card-header">
-                    <h3 class="medicine-title">Парацетамол</h3>
-                    <span class="medicine-type">таблетки</span>
+                    <h3 class="medicine-title">{{ medication }}</h3>
+                    <span class="medicine-type">{{ medication.type }}</span>
                 </div>
                 <div class="card-body">
                     <div class="info-row">
                         <span class="info-label">Производитель:</span>
-                        <span class="info-value">Фармстандарт</span>
+                        <span class="info-value">{{ medication.manufacturer }}</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Страна:</span>
-                        <span class="info-value">Россия</span>
+                        <span class="info-value">{{ medication.manufacturer.country }}</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Описание:</span>
-                        <span class="info-value">Таблетки 500 мг, 20 шт в упаковке. Жаропонижающее и обезболивающее средство.</span>
+                        <span class="info-value">{{ medication.description }}</span>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -48,251 +48,11 @@
                         <i class="fas fa-plus-circle"></i> Добавить в аптечку
                     </button>
                 </div>
+            </div>
+                {% endfor %}
             </div>
 
-            <!-- Карточка 2: Мазь -->
-            <div class="medicine-card">
-                <div class="card-header">
-                    <h3 class="medicine-title">Троксевазин</h3>
-                    <span class="medicine-type">мазь</span>
-                </div>
-                <div class="card-body">
-                    <div class="info-row">
-                        <span class="info-label">Производитель:</span>
-                        <span class="info-value">Балканфарма</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Страна:</span>
-                        <span class="info-value">Болгария</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Описание:</span>
-                        <span class="info-value">Гель для наружного применения 2%, туба 40 г. При венозной недостаточности, отеках.</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
-                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
-                    </button>
-                </div>
-            </div>
 
-            <!-- Карточка 3: Шприцы -->
-            <div class="medicine-card">
-                <div class="card-header">
-                    <h3 class="medicine-title">Шприц инсулиновый</h3>
-                    <span class="medicine-type">шприц</span>
-                </div>
-                <div class="card-body">
-                    <div class="info-row">
-                        <span class="info-label">Производитель:</span>
-                        <span class="info-value">BD Medical</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Страна:</span>
-                        <span class="info-value">США</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Описание:</span>
-                        <span class="info-value">Объем 1 мл, игла 30G, стерильный. Инсулиновый шприц с несъемной иглой.</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
-                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
-                    </button>
-                </div>
-            </div>
-
-            <!-- Карточка 4: Крем -->
-            <div class="medicine-card">
-                <div class="card-header">
-                    <h3 class="medicine-title">Бепантен</h3>
-                    <span class="medicine-type">крем</span>
-                </div>
-                <div class="card-body">
-                    <div class="info-row">
-                        <span class="info-label">Производитель:</span>
-                        <span class="info-value">Bayer</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Страна:</span>
-                        <span class="info-value">Германия</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Описание:</span>
-                        <span class="info-value">Крем 5%, туба 30 г. Для ухода за кожей, заживления микротрещин, при опрелостях.</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
-                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
-                    </button>
-                </div>
-            </div>
-
-            <!-- Карточка 5: Капли -->
-            <div class="medicine-card">
-                <div class="card-header">
-                    <h3 class="medicine-title">Визоптин</h3>
-                    <span class="medicine-type">капли</span>
-                </div>
-                <div class="card-body">
-                    <div class="info-row">
-                        <span class="info-label">Производитель:</span>
-                        <span class="info-value">Ромфарм</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Страна:</span>
-                        <span class="info-value">Румыния</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Описание:</span>
-                        <span class="info-value">Капли глазные 0.5%, флакон 10 мл. Увлажняющие капли при сухости глаз.</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
-                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
-                    </button>
-                </div>
-            </div>
-
-            <!-- Карточка 6: Ампулы -->
-            <div class="medicine-card">
-                <div class="card-header">
-                    <h3 class="medicine-title">Дексаметазон</h3>
-                    <span class="medicine-type">раствор</span>
-                </div>
-                <div class="card-body">
-                    <div class="info-row">
-                        <span class="info-label">Производитель:</span>
-                        <span class="info-value">КРКА</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Страна:</span>
-                        <span class="info-value">Словения</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Описание:</span>
-                        <span class="info-value">Раствор для инъекций 4 мг/мл, ампулы 1 мл, 5 шт. Противовоспалительное средство.</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
-                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
-                    </button>
-                </div>
-            </div>
-
-            <!-- Карточка 7: Пластырь -->
-            <div class="medicine-card">
-                <div class="card-header">
-                    <h3 class="medicine-title">Пластырь бактерицидный</h3>
-                    <span class="medicine-type">пластырь</span>
-                </div>
-                <div class="card-body">
-                    <div class="info-row">
-                        <span class="info-label">Производитель:</span>
-                        <span class="info-value">Хартманн</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Страна:</span>
-                        <span class="info-value">Германия</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Описание:</span>
-                        <span class="info-value">Набор пластырей 6×10 см, 5 шт. Стерильные, с антибактериальной подушечкой.</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
-                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
-                    </button>
-                </div>
-            </div>
-
-            <!-- Карточка 8: Сироп -->
-            <div class="medicine-card">
-                <div class="card-header">
-                    <h3 class="medicine-title">Нурофен для детей</h3>
-                    <span class="medicine-type">сироп</span>
-                </div>
-                <div class="card-body">
-                    <div class="info-row">
-                        <span class="info-label">Производитель:</span>
-                        <span class="info-value">Reckitt Benckiser</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Страна:</span>
-                        <span class="info-value">Великобритания</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Описание:</span>
-                        <span class="info-value">Суспензия 100 мг/5 мл, флакон 150 мл. С апельсиновым вкусом, без сахара.</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
-                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
-                    </button>
-                </div>
-            </div>
-
-            <!-- Карточка 9: Спрей -->
-            <div class="medicine-card">
-                <div class="card-header">
-                    <h3 class="medicine-title">Мирамистин</h3>
-                    <span class="medicine-type">спрей</span>
-                </div>
-                <div class="card-body">
-                    <div class="info-row">
-                        <span class="info-label">Производитель:</span>
-                        <span class="info-value">Инфамед</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Страна:</span>
-                        <span class="info-value">Россия</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Описание:</span>
-                        <span class="info-value">Раствор для местного применения 0.01%, флакон 150 мл. Антисептик широкого спектра.</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
-                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
-                    </button>
-                </div>
-            </div>
-
-            <!-- Карточка 10: Капсулы -->
-            <div class="medicine-card">
-                <div class="card-header">
-                    <h3 class="medicine-title">Омепразол</h3>
-                    <span class="medicine-type">капсулы</span>
-                </div>
-                <div class="card-body">
-                    <div class="info-row">
-                        <span class="info-label">Производитель:</span>
-                        <span class="info-value">Озон</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Страна:</span>
-                        <span class="info-value">Россия</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Описание:</span>
-                        <span class="info-value">Капсулы 20 мг, 30 шт. Для лечения язвы желудка, гастроэзофагеальной рефлюксной болезни.</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
-                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
-                    </button>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 {% endblock %}

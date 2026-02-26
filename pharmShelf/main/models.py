@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-class Manufacture(models.Model):
+class Manufacturer(models.Model):
     name = models.CharField(
         max_length=255,
         verbose_name='Производитель',
@@ -39,7 +39,7 @@ class Medication(models.Model):
         verbose_name='Описание',
     )
     manufacturer = models.ForeignKey(
-        Manufacture,
+        Manufacturer,
         on_delete=models.PROTECT,
         related_name='medications',
         verbose_name='Производитель',
