@@ -61,6 +61,11 @@
     box-shadow: 0 15px 35px rgba(52, 152, 219, 0.15);
 }
 
+.card-img-top {
+    width: 100%;
+    height: auto;
+}
+
 /* Заголовок карточки */
 .card-header {
     padding: 20px 20px 15px;

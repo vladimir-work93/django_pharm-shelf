@@ -30,6 +30,11 @@
                     <span class="medicine-type">{{ medication.type }}</span>
                 </div>
                 <div class="card-body">
+                    <img
+                            class="card-img-top"
+                            src="/media/{{ medication.image_url }}"
+                            alt="{{ medication }}"
+                    >
                     <div class="info-row">
                         <span class="info-label">Производитель:</span>
                         <span class="info-value">{{ medication.manufacturer }}</span>
