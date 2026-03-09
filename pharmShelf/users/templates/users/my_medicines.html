@@ -1,0 +1,163 @@
+{% extends 'users/profile.html' %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/my_medicines.css' %}">
+{% endblock %}
+
+{% block profile_content %}
+<div class="content-section active">
+    <h2 class="section-title">Мои лекарства</h2>
+
+    <div class="medicines-header">
+        <a href="{% url 'users:profile_section' 'catalog' %}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Добавить лекарство
+        </a>
+
+        <!-- Поиск -->
+        {% include 'users/search_bar.html' %}
+    </div>
+
+    <!-- Сортировка -->
+    <div class="medicines-sort">
+        <span class="sort-label">
+            <i class="fas fa-sort-amount-down"></i> Сортировать по:
+        </span>
+        <div class="sort-buttons">
+            <a href="?{% if search_query %}search={{ search_query }}&{% endif %}sort=name&direction={% if current_sort == 'name' and current_direction == 'asc' %}desc{% else %}asc{% endif %}"
+               class="sort-btn {% if current_sort == 'name' %}active{% endif %}">
+                <i class="fas fa-font"></i> Названию
+                {% if current_sort == 'name' %}
+                    <i class="fas fa-chevron-{% if current_direction == 'asc' %}up{% else %}down{% endif %}"></i>
+                {% endif %}
+            </a>
+            <a href="?{% if search_query %}search={{ search_query }}&{% endif %}sort=production_date&direction={% if current_sort == 'production_date' and current_direction == 'asc' %}desc{% else %}asc{% endif %}"
+               class="sort-btn {% if current_sort == 'production_date' %}active{% endif %}">
+                <i class="fas fa-calendar-alt"></i> Дате производства
+                {% if current_sort == 'production_date' %}
+                    <i class="fas fa-chevron-{% if current_direction == 'asc' %}up{% else %}down{% endif %}"></i>
+                {% endif %}
+            </a>
+            <a href="?{% if search_query %}search={{ search_query }}&{% endif %}sort=expiry_date&direction={% if current_sort == 'expiry_date' and current_direction == 'asc' %}desc{% else %}asc{% endif %}"
+               class="sort-btn {% if current_sort == 'expiry_date' %}active{% endif %}">
+                <i class="fas fa-hourglass-end"></i> Сроку годности
+                {% if current_sort == 'expiry_date' %}
+                    <i class="fas fa-chevron-{% if current_direction == 'asc' %}up{% else %}down{% endif %}"></i>
+                {% endif %}
+            </a>
+        </div>
+
+        <!-- Кнопка сброса фильтров -->
+        {% if search_query or current_sort != 'name' or current_direction != 'asc' %}
+        <a href="{% url 'users:profile_section' 'my_medicines' %}" class="reset-filters">
+            <i class="fas fa-times-circle"></i> Сбросить
+        </a>
+        {% endif %}
+    </div>
+
+    <!-- Информация о количестве найденных -->
+    {% if page_obj.paginator.count > 0 %}
+    <div class="results-info">
+        Найдено <span>{{ page_obj.paginator.count }}</span> лекарств
+    </div>
+    {% endif %}
+
+    <!-- Список лекарств -->
+    <div class="medicines-grid" id="medicines-list">
+        {% for medicine in page_obj %}
+        <div class="medicine-card">
+            <div class="medicine-info">
+                <h4>{{ medicine.medication.name }}</h4>
+                <p class="medicine-type">{{ medicine.medication.type }}</p>
+                <p class="medicine-manufacturer">
+                    Производитель: {{ medicine.medication.manufacturer.name }}, {{ medicine.medication.manufacturer.country }}
+                </p>
+                <p class="medicine-description">{{ medicine.medication.description|truncatechars:100 }}</p>
+                <p class="medicine-dates">
+                    Произведено: {{ medicine.production_date|date:"d.m.Y" }}<br>
+                    Годен до: {{ medicine.expiry_date|date:"d.m.Y" }}
+                </p>
+                <p class="medicine-expiry {% if medicine.is_expiring_soon %}warning{% endif %}">
+                    {% if medicine.is_expired %}
+                        <span class="expired">Просрочено!</span>
+                    {% elif medicine.is_expiring_soon %}
+                        <span class="expiring-soon">Скоро истекает!</span>
+                    {% endif %}
+                </p>
+                <p class="medicine-quantity">Количество: {{ medicine.quantity }} шт.</p>
+                {% if medicine.is_searchable %}
+                    <p class="medicine-searchable">✓ Доступно для поиска</p>
+                {% else %}
+                    <p class="medicine-searchable">- Недоступно для поиска</p>
+                {% endif %}
+            </div>
+            <div class="medicine-actions">
+                <a href="{% url 'users:medication_edit' medicine.id %}" class="btn-icon">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <form method="post" action="{% url 'users:medication_delete' medicine.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-icon delete-medicine" onclick="return confirm('Вы уверены, что хотите удалить это лекарство из аптечки?');">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            {% if search_query %}
+                <p>По запросу "{{ search_query }}" ничего не найдено</p>
+                <a href="{% url 'users:profile_section' 'my_medicines' %}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Сбросить поиск
+                </a>
+            {% else %}
+                <p>В вашей аптечке пока нет лекарств</p>
+                <a href="{% url 'users:profile_section' 'catalog' %}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Перейти в каталог
+                </a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Пагинация -->
+    {% if page_obj.paginator.num_pages > 1 %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_direction %}&direction={{ current_direction }}{% endif %}">
+                    <i class="fas fa-angle-double-left"></i>
+                </a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_direction %}&direction={{ current_direction }}{% endif %}">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            {% else %}
+                <span class="disabled"><i class="fas fa-angle-double-left"></i></span>
+                <span class="disabled"><i class="fas fa-angle-left"></i></span>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <span class="current">{{ num }}</span>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a href="?page={{ num }}{% if search_query %}&search={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_direction %}&direction={{ current_direction }}{% endif %}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_direction %}&direction={{ current_direction }}{% endif %}">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_direction %}&direction={{ current_direction }}{% endif %}">
+                    <i class="fas fa-angle-double-right"></i>
+                </a>
+            {% else %}
+                <span class="disabled"><i class="fas fa-angle-right"></i></span>
+                <span class="disabled"><i class="fas fa-angle-double-right"></i></span>
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

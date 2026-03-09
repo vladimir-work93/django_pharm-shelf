@@ -19,7 +19,6 @@ class Manufacturer(models.Model):
         verbose_name = 'Производитель'
         verbose_name_plural = 'Производители'
 
-
 class Medication(models.Model):
     name = models.CharField(
         max_length=255,

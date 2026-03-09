@@ -1,8 +1,13 @@
+from datetime import date
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MinValueValidator, MaxValueValidator
 from django.core.validators import EmailValidator
 from django.contrib.auth.base_user import BaseUserManager
+
+from main.models import Medication
+
 
 # Create your models here.
 
@@ -92,3 +97,53 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}".strip()
+
+class UserMedication(models.Model):
+    """Лекарство пользователя"""
+    user = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        related_name='user_medications',
+        db_column='user_id'
+    )
+    medication = models.ForeignKey(
+        Medication,
+        on_delete=models.PROTECT,
+        related_name='user_medications',
+        db_column='medication_id'
+    )
+    production_date = models.DateField(null=True, blank=True, verbose_name='Дата производства')
+    expiry_date = models.DateField(null=True, blank=True, verbose_name='Годен до')
+    quantity = models.PositiveIntegerField(
+        default=1,
+        verbose_name='Количество',
+        validators=[MinValueValidator(1), MaxValueValidator(9999)]
+    )
+    is_searchable = models.BooleanField(default=False, verbose_name='Доступно для поиска')
+    added_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
+
+    class Meta:
+        db_table = 'USER_MEDICATIONS'
+        verbose_name = 'Лекарство пользователя'
+        verbose_name_plural = 'Лекарства пользователей'
+
+    def __str__(self):
+        return f"{self.user.get_full_name()} - {self.medication.name}"
+
+    @property
+    def is_expired(self):
+        """Проверяет, просрочено ли лекарство"""
+        if self.expiry_date:
+            return self.expiry_date < date.today()
+        return False
+
+    @property
+    def is_expiring_soon(self):
+        """Проверяет, истекает ли срок годности в ближайшие 30 дней"""
+        if self.expiry_date and not self.is_expired:
+            days_until_expiry = (self.expiry_date - date.today()).days
+            return 0 <= days_until_expiry <= 30
+        return False

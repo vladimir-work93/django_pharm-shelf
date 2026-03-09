@@ -1,0 +1,324 @@
+/* ============================================
+   MEDICATION_ADD.CSS - КОМПАКТНАЯ ВЕРСИЯ
+   ============================================ */
+
+/* Затемнение фона */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+/* Компактный контейнер */
+.modal-container.compact {
+    background: white;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Заголовок */
+.modal-header {
+    padding: 15px 20px;
+    background: #3498db;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-title {
+    font-size: 1.2rem;
+    color: white;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.modal-title i {
+    font-size: 1.3rem;
+}
+
+.modal-close {
+    color: white;
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+/* Тело */
+.modal-body {
+    padding: 20px;
+}
+
+/* Информация о лекарстве */
+.medicine-info {
+    background: #f8fafc;
+    padding: 12px 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.medicine-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 6px;
+}
+
+.medicine-details {
+    display: flex;
+    gap: 15px;
+    font-size: 0.9rem;
+    color: #718096;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.detail-item i {
+    color: #667eea;
+    font-size: 0.9rem;
+}
+
+/* Форма */
+.medication-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #4a5568;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.form-label i {
+    color: #667eea;
+    font-size: 0.9rem;
+}
+
+/* Поля ввода */
+
+.medication-form input[type="date"] {
+    padding: 8px 10px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: white;
+    width: 100%;
+}
+
+.medication-form input[type="date"]:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Количество */
+.quantity-group {
+    grid-column: span 1;
+}
+
+.quantity-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.quantity-wrapper input {
+    text-align: center;
+    padding: 8px 5px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    width: 70px;
+    font-size: 0.9rem;
+}
+
+.quantity-btn {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #e2e8f0;
+    background: white;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #667eea;
+    transition: all 0.2s;
+}
+
+.quantity-btn:hover {
+    background: #667eea;
+    border-color: #667eea;
+    color: white;
+}
+
+/* Чекбокс */
+.checkbox-group {
+    grid-column: span 1;
+    background: #f8fafc;
+    padding: 8px 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #667eea;
+}
+
+.checkbox-text {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #4a5568;
+}
+
+.checkbox-text i {
+    color: #667eea;
+    font-size: 0.9rem;
+}
+
+/* Сообщения об ошибках */
+.field-error {
+    color: #e53e3e;
+    font-size: 0.75rem;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.field-error::before {
+    content: "⚠️";
+    font-size: 0.7rem;
+}
+
+.form-error {
+    background: #fff5f5;
+    border: 1px solid #feb2b2;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    color: #c53030;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Кнопки */
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+    background: white;
+    color: #4a5568;
+    border: 2px solid #e2e8f0;
+}
+
+.btn-secondary:hover {
+    border-color: #667eea;
+    color: #667eea;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-body {
+        padding: 15px;
+    }
+
+    .medicine-details {
+        flex-direction: column;
+        gap: 5px;
+    }
+}

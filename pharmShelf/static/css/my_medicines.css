@@ -1,0 +1,298 @@
+/* ===== СТИЛИ ДЛЯ РАЗДЕЛА "МОИ ЛЕКАРСТВА" ===== */
+.medicines-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* Сортировка */
+.medicines-sort {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.sort-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.sort-label i {
+    color: #3498db;
+}
+
+.sort-buttons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.sort-btn {
+    padding: 8px 12px;
+    border: 1.5px solid #e0e6eb;
+    border-radius: 8px;
+    background: white;
+    color: #34495e;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+}
+
+.sort-btn:hover {
+    border-color: #3498db;
+    color: #3498db;
+}
+
+.sort-btn.active {
+    background: #3498db;
+    border-color: #3498db;
+    color: white;
+}
+
+.sort-btn i {
+    font-size: 0.8rem;
+}
+
+/* Пагинация */
+.pagination {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.pagination .step-links {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.pagination a, .pagination span {
+    padding: 8px 12px;
+    border: 1.5px solid #e0e6eb;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #34495e;
+    transition: all 0.2s;
+    min-width: 40px;
+    text-align: center;
+}
+
+.pagination a:hover {
+    border-color: #3498db;
+    color: #3498db;
+}
+
+.pagination .current {
+    background: #3498db;
+    border-color: #3498db;
+    color: white;
+}
+
+.pagination .disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Кнопка сброса фильтров */
+.reset-filters {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 15px;
+    background: #f8fafc;
+    border: 1.5px solid #e0e6eb;
+    border-radius: 8px;
+    color: #7f8c8d;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.reset-filters:hover {
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+/* Информация о количестве найденных */
+.results-info {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.results-info span {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .medicines-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .medicines-sort {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sort-buttons {
+        justify-content: space-between;
+    }
+
+    .sort-btn {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+.medicines-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.medicine-card {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+}
+
+.medicine-card:hover {
+    background: #f0f7ff;
+}
+
+.medicine-info h4 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.medicine-info p {
+    color: #34495e;
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+
+.medicine-type {
+    font-weight: 500;
+    color: #3498db !important;
+    margin-bottom: 8px !important;
+}
+
+.medicine-manufacturer {
+    font-style: italic;
+    color: #7f8c8d !important;
+    margin-bottom: 10px !important;
+}
+
+.medicine-description {
+    color: #2c3e50 !important;
+    background: rgba(52, 152, 219, 0.1);
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 10px 0 !important;
+}
+
+.medicine-dates {
+    background: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 8px 0 !important;
+}
+
+.medicine-expiry {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 5px 0 !important;
+}
+
+.medicine-expiry .expired {
+    color: #e74c3c;
+    background: #fde8e8;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.medicine-expiry .expiring-soon {
+    color: #e67e22;
+    background: #fef5e7;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.medicine-quantity {
+    font-weight: 500;
+    color: #27ae60 !important;
+    margin-top: 8px !important;
+}
+
+.medicine-searchable {
+    color: #3498db !important;
+    font-size: 0.9rem !important;
+    margin-top: 5px !important;
+}
+
+.medicine-actions {
+    display: flex;
+    gap: 8px;
+    margin-left: 15px;
+}
+
+.btn-icon {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+    background: white;
+    color: #7f8c8d;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.btn-icon:hover {
+    background: #3498db;
+    color: white;
+}
+
+.delete-medicine:hover {
+    background: #e74c3c !important;
+    color: white;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    background: #f8fafc;
+    border-radius: 12px;
+}
+
+.empty-state p {
+    color: #7f8c8d;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}

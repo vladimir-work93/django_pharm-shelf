@@ -1,0 +1,124 @@
+{% extends 'users/profile.html' %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/edit_profile.css' %}">
+{% endblock %}
+
+{% block profile_content %}
+<div class="content-section active">
+    <h2 class="section-title">Редактирование профиля</h2>
+
+    <div class="forms-wrapper">
+        <!-- Форма редактирования профиля -->
+        <div class="form active-form">
+            <h3 class="form-title">Личные данные</h3>
+            <p class="form-subtitle">Вы можете изменить свою контактную информацию</p>
+
+            <!-- Сообщения об ошибках -->
+            {% if form.errors %}
+                <ul class="message">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <!-- Сообщения об успехе -->
+            {% if messages %}
+                {% for message in messages %}
+                    <ul class="message success">
+                        <li>{{ message }}</li>
+                    </ul>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" action="{% url 'users:profile_section' 'edit_profile' %}">
+                {% csrf_token %}
+
+                <div class="input-row">
+                    <div class="input-group half-width">
+                        <label for="{{ form.first_name.id_for_label }}">Имя</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user input-icon"></i>
+                            {{ form.first_name }}
+                        </div>
+                        {% if form.first_name.errors %}
+                            <small class="input-hint error">{{ form.first_name.errors.0 }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div class="input-group half-width">
+                        <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user input-icon"></i>
+                            {{ form.last_name }}
+                        </div>
+                        {% if form.last_name.errors %}
+                            <small class="input-hint error">{{ form.last_name.errors.0 }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="{{ form.email.id_for_label }}">Электронная почта</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope input-icon"></i>
+                        {{ form.email }}
+                    </div>
+                    {% if form.email.errors %}
+                        <small class="input-hint error">{{ form.email.errors.0 }}</small>
+                    {% endif %}
+                </div>
+
+                <div class="input-group">
+                    <label for="{{ form.phone.id_for_label }}">Номер телефона</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-phone input-icon"></i>
+                        {{ form.phone }}
+                    </div>
+                    <small class="input-hint">Формат: +79991234567</small>
+                    {% if form.phone.errors %}
+                        <small class="input-hint error">{{ form.phone.errors.0 }}</small>
+                    {% endif %}
+                </div>
+
+                <div class="input-group">
+                    <label for="{{ form.snils.id_for_label }}">СНИЛС</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-id-card input-icon"></i>
+                        {{ form.snils }}
+                    </div>
+                    <small class="input-hint">Формат: 123-456-789 00</small>
+                    {% if form.snils.errors %}
+                        <small class="input-hint error">{{ form.snils.errors.0 }}</small>
+                    {% endif %}
+                </div>
+
+                <div class="input-group">
+                    <label>Пароль</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-key input-icon"></i>
+                        <a href="{% url 'users:password_change' %}" class="btn btn-secondary" style="text-align: center; margin: 0;">
+                            <i class="fas fa-lock"></i> Изменить пароль
+                        </a>
+                    </div>
+                    <small class="input-hint">Для смены пароля перейдите по ссылке выше</small>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Сохранить изменения
+                    </button>
+                    <a href="{% url 'users:profile' %}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Отмена
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

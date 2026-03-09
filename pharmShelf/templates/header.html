@@ -9,11 +9,11 @@
 
         <!-- Навигация для всех пользователей -->
         <nav class="main-nav">
-            <a href="{% url 'main:catalog' %}" class="nav-link">
-                    <i class="fas fa-tablets"></i> Все лекарства
+            <a href="#" class="nav-link">
+                    <i class="fas fa-tablets"></i> Поиск лекарств в других аптечках
                 </a>
             {% if user.is_authenticated %}
-                <a href="#" class="nav-link">
+                <a href="{% url 'users:profile_section' 'my_profile' %}" class="nav-link">
                     <i class="fas fa-user"></i> Профиль
                 </a>
                 <a href="{% url 'users:logout' %}" class="nav-link">

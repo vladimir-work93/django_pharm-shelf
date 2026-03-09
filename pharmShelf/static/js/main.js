@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Подсветка активного раздела при прокрутке
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.main-nav a[href^="#"]');
 
     window.addEventListener('scroll', function() {
         let current = '';

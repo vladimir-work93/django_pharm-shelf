@@ -1,0 +1,12 @@
+{% if messages %}
+    {% for message in messages %}
+        <div class="message {{ message.tags }} fade-in">
+            <i class="fas fa-{% if message.tags == 'success' %}check-circle
+            {% elif message.tags == 'error' %}exclamation-circle
+            {% else %}info-circle{% endif %}">
+
+            </i>
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,162 @@
+/* ============================================
+   PROFILE_EDIT.CSS - СТИЛИ ДЛЯ РЕДАКТИРОВАНИЯ ПРОФИЛЯ
+   Полностью повторяет стили register.css
+   ============================================ */
+
+/* Две колонки для имени и фамилии */
+.input-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.half-width {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+/* Стили для ссылки изменения пароля */
+.input-group .btn-secondary {
+    width: 100%;
+    margin: 0;
+    padding: 12px;
+    background: #f0f7ff;
+    border: 1.5px dashed #3498db;
+    color: #3498db;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.input-group .btn-secondary:hover {
+    background: #e1f0fa;
+    border-color: #2980b9;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Стили для блока с кнопками */
+.btn-primary, .btn-secondary {
+    padding: 14px;
+    font-size: 1rem;
+}
+
+/* Сообщение об успехе */
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    list-style: none;
+    padding: 12px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.form-actions .btn-primary {
+    flex: 2;
+}
+
+.form-actions .btn-secondary {
+    flex: 1;
+}
+
+.password-change-btn {
+    width: 100%;
+    margin: 0;
+    padding: 12px;
+    background: #f0f7ff;
+    border: 1.5px dashed #3498db;
+    color: #3498db;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.password-change-btn:hover {
+    background: #e1f0fa;
+    border-color: #2980b9;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .input-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .half-width {
+        width: 100%;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .btn-primary,
+    .form-actions .btn-secondary {
+        flex: none;
+        width: 100%;
+    }
+
+    /* Кнопки друг под другом на мобильных */
+    div[style*="display: flex; gap: 15px;"] {
+        flex-direction: column;
+    }
+}
+
+/* Убедимся, что все основные стили форм наследуются из main.css */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #95a5a6;
+    font-size: 17px;
+}
+
+input {
+    width: 100%;
+    padding: 14px 14px 14px 42px;
+    border: 1.5px solid #e0e6eb;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: all 0.3s;
+    color: #2c3e50;
+}
+
+input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.input-hint {
+    display: block;
+    margin-top: 5px;
+    color: #95a5a6;
+    font-size: 12px;
+}
+
+.input-hint.error {
+    color: #dc3545;
+}

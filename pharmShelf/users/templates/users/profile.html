@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Мой профиль | Аптечная полка{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% block profile_extra_css %}{% endblock %}
+{% endblock %}
+
+{% block body_class %}profile-page{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <!-- Левая колонка - меню -->
+    <aside class="profile-sidebar">
+        <div class="user-info">
+            <div class="user-avatar">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <h3 class="user-name">{{ user.get_full_name|default:user.username }}</h3>
+            <p class="user-email">{{ user.email }}</p>
+        </div>
+
+        <nav class="profile-nav">
+            <a href="{% url 'users:profile_section' 'my_profile' %}"
+               class="nav-link {% if section == 'my_profile' %}active{% endif %}">
+                <i class="fas fa-user"></i>
+                <span>Мой профиль</span>
+            </a>
+            <a href="{% url 'users:profile_section' 'edit_profile' %}"
+               class="nav-link {% if section == 'edit_profile' %}active{% endif %}">
+                <i class="fas fa-pen"></i>
+                <span>Редактировать профиль</span>
+            </a>
+            <a href="{% url 'users:profile_section' 'my_medicines' %}"
+               class="nav-link {% if section == 'my_medicines' %}active{% endif %}">
+                <i class="fas fa-pills"></i>
+                <span>Мои лекарства</span>
+            </a>
+            <a href="{% url 'users:profile_section' 'catalog' %}"
+               class="nav-link {% if section == 'catalog' %}active{% endif %}">
+                <i class="fas fa-tablets"></i>
+                <span>Каталог лекарств</span>
+            </a>
+            <a href="{% url 'users:profile_section' 'search' %}"
+               class="nav-link {% if section == 'search' %}active{% endif %}">
+                <i class="fas fa-search"></i>
+                <span>Поиск в других аптечках</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Правая колонка - контент -->
+    <main class="profile-content">
+        {% block profile_content %}{% endblock %}
+    </main>
+</div>
+{% endblock %}

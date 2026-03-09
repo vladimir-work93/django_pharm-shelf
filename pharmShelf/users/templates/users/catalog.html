@@ -1,21 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'users/profile.html' %}
 {% load static %}
 
-{% block title %}Каталог лекарств | Аптечная полка{% endblock %}
-
 {% block extra_css %}
+{{ block.super }}
 <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
 {% endblock %}
 
-{% block content %}
-<div class="catalog-page">
+{% block profile_content %}
+<div class="content-section active">
+    <h2 class="section-title">Каталог лекарственных средств</h2>
     <div class="container">
         <!-- Заголовок страницы -->
         <div class="catalog-header">
-            <h1 class="catalog-title">
-                <i class="fas fa-tablets"></i>
-                Каталог лекарственных средств
-            </h1>
             <p class="catalog-subtitle">
                 Здесь представлены все доступные препараты. Нажмите "Добавить в аптечку", чтобы сохранить лекарство в свой личный список.
             </p>
@@ -49,9 +45,9 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button class="btn-add" onclick="alert('Функция будет доступна после подключения базы данных')">
+                    <a href="{% url 'users:add_to_medicine_chest' medication.id %}" class="btn-add">
                         <i class="fas fa-plus-circle"></i> Добавить в аптечку
-                    </button>
+                    </a>
                 </div>
             </div>
                 {% endfor %}

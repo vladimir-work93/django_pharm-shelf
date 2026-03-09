@@ -1,0 +1,128 @@
+{% extends 'users/profile.html' %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/medication_add.css' %}">
+{% endblock %}
+
+{% block profile_content %}
+<div class="content-section active">
+    <div class="modal-overlay">
+        <div class="modal-container compact">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="fas fa-pills"></i>
+                    Добавление в аптечку
+                </h2>
+                <a href="{% url 'users:profile_section' section='catalog' %}" class="modal-close">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
+
+            <div class="modal-body">
+                <div class="medicine-info">
+                    <div class="medicine-name">{{ medication.name }}</div>
+                    <div class="medicine-details">
+                        <span class="detail-item">
+                            <i class="fas fa-industry"></i> {{ medication.manufacturer }}
+                        </span>
+                        <span class="detail-item">
+                            <i class="fas fa-tag"></i> {{ medication.type }}
+                        </span>
+                    </div>
+                </div>
+
+                <form method="post" action="{% url 'users:add_to_medicine_chest' medication.id %}" class="medication-form">
+                    {% csrf_token %}
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="{{ form.production_date.id_for_label }}" class="form-label">
+                                <i class="fas fa-calendar-alt"></i>
+                                Дата производства
+                            </label>
+                            {{ form.production_date }}
+                            {% if form.production_date.errors %}
+                                <div class="field-error">{{ form.production_date.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.expiry_date.id_for_label }}" class="form-label">
+                                <i class="fas fa-hourglass-end"></i>
+                                Годен до
+                            </label>
+                            {{ form.expiry_date }}
+                            {% if form.expiry_date.errors %}
+                                <div class="field-error">{{ form.expiry_date.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group quantity-group">
+                            <label for="{{ form.quantity.id_for_label }}" class="form-label">
+                                <i class="fas fa-cubes"></i>
+                                Количество
+                            </label>
+                            <div class="quantity-wrapper">
+                                <button type="button" class="quantity-btn minus" onclick="decrementQuantity()">−</button>
+                                {{ form.quantity }}
+                                <button type="button" class="quantity-btn plus" onclick="incrementQuantity()">+</button>
+                            </div>
+                            {% if form.quantity.errors %}
+                                <div class="field-error">{{ form.quantity.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                {{ form.is_searchable }}
+                                <span class="checkbox-text">
+                                    <i class="fas fa-globe"></i> Разрешить поиск
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    {% if form.non_field_errors %}
+                    <div class="form-error">
+                        {% for error in form.non_field_errors %}
+                            <p><i class="fas fa-exclamation-circle"></i> {{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="form-actions">
+                        <a href="{% url 'users:profile_section' section='catalog' %}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Отмена
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus-circle"></i> Добавить
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function incrementQuantity() {
+    const input = document.getElementById('{{ form.quantity.id_for_label }}');
+    let value = parseInt(input.value) || 1;
+    if (value < 9999) {
+        input.value = value + 1;
+    }
+}
+
+function decrementQuantity() {
+    const input = document.getElementById('{{ form.quantity.id_for_label }}');
+    let value = parseInt(input.value) || 1;
+    if (value > 1) {
+        input.value = value - 1;
+    }
+}
+</script>
+{% endblock %}

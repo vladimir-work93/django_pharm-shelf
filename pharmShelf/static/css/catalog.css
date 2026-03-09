@@ -57,8 +57,7 @@
 }
 
 .medicine-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(52, 152, 219, 0.15);
+    background: #f0f7ff;
 }
 
 .card-img-top {
