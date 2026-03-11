@@ -138,7 +138,8 @@ def medication_edit_view(request, pk):
 
     return render(request, 'users/medication_edit.html', {
         'form': form,
-        'medication': med_item.medication
+        'medication': med_item.medication,
+        'user_medication': med_item
     })
 
 @login_required

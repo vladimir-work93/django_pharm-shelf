@@ -38,7 +38,7 @@
                     </div>
                 </div>
 
-                <form method="post" action="{% url 'users:medication_edit' medication.id %}" class="medication-form">
+                <form method="post" action="{% url 'users:medication_edit' user_medication.id %}" class="medication-form">
                     {% csrf_token %}
 
                     <div class="form-row">
@@ -112,7 +112,7 @@
                     </div>
                 </form>
 
-                <form method="post" action="{% url 'users:medication_delete' medication.id %}" style="margin-top: 10px;" onsubmit="return confirm('Вы уверены, что хотите удалить это лекарство из аптечки?');">
+                <form method="post" action="{% url 'users:medication_delete' user_medication.id %}" style="margin-top: 10px;" onsubmit="return confirm('Вы уверены, что хотите удалить это лекарство из аптечки?');">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger" style="width: 100%;">
                         <i class="fas fa-trash-alt"></i> Удалить лекарство
