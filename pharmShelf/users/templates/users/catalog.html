@@ -17,42 +17,63 @@
             </p>
         </div>
 
-        <!-- Сетка карточек -->
-            <div class="medicines-grid">
-                {% for medication in medications %}
-                    <div class="medicine-card">
-                <div class="card-header">
-                    <h3 class="medicine-title">{{ medication }}</h3>
-                    <span class="medicine-type">{{ medication.type }}</span>
-                </div>
-                <div class="card-body">
-                    <img
-                            class="card-img-top"
-                            src="/media/{{ medication.image_url }}"
-                            alt="{{ medication }}"
-                    >
-                    <div class="info-row">
-                        <span class="info-label">Производитель:</span>
-                        <span class="info-value">{{ medication.manufacturer }}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Страна:</span>
-                        <span class="info-value">{{ medication.manufacturer.country }}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Описание:</span>
-                        <span class="info-value">{{ medication.description }}</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <a href="{% url 'users:add_to_medicine_chest' medication.id %}" class="btn-add">
-                        <i class="fas fa-plus-circle"></i> Добавить в аптечку
-                    </a>
-                </div>
+        <!-- Информация о количестве записей -->
+        <div class="row mb-3">
+            <div class="col-12">
+                <p class="text-muted">
+                    Показано {{ page_obj.start_index }} - {{ page_obj.end_index }} из {{ page_obj.paginator.count }} препаратов
+                </p>
             </div>
-                {% endfor %}
-            </div>
+        </div>
 
+        <!-- Сетка карточек -->
+        <div class="medicines-grid">
+            {% for medication in page_obj %}
+                <div class="medicine-card">
+                    <div class="card-header">
+                        <h3 class="medicine-title">{{ medication }}</h3>
+                        <span class="medicine-type">{{ medication.type }}</span>
+                    </div>
+                    <div class="card-body">
+                        {% if medication.image_url %}
+                            <img
+                                class="card-img-top"
+                                src="{{ medication.image_url.url }}"
+                                alt="{{ medication }}"
+                            >
+                        {% else %}
+                            <div class="card-img-top no-image">
+                                <i class="fas fa-pills fa-3x text-muted"></i>
+                            </div>
+                        {% endif %}
+                        <div class="info-row">
+                            <span class="info-label">Производитель:</span>
+                            <span class="info-value">{{ medication.manufacturer }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Страна:</span>
+                            <span class="info-value">{{ medication.manufacturer.country }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Описание:</span>
+                            <span class="info-value">{{ medication.description|truncatechars:100 }}</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'users:add_to_medicine_chest' medication.id %}" class="btn-add">
+                            <i class="fas fa-plus-circle"></i> Добавить в аптечку
+                        </a>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p class="text-muted">В каталоге пока нет препаратов</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Пагинация -->
+        {% include 'users/paginator.html' %}
 
     </div>
 </div>

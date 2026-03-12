@@ -248,7 +248,7 @@ def profile_section(request, section):
         context['current_direction'] = sort_direction
 
         # Пагинация
-        paginator = Paginator(medicines, 10)  # 10 элементов на страницу
+        paginator = Paginator(medicines, 5)  # 10 элементов на страницу
         page_number = request.GET.get('page', 1)
         page_obj = paginator.get_page(page_number)
 
@@ -257,10 +257,18 @@ def profile_section(request, section):
 
         template = 'users/my_medicines.html'
 
+
     elif section == 'catalog':
+
         # Получаем все лекарства из каталога
         medications = Medication.objects.select_related('manufacturer').all()
-        context['medications'] = medications
+
+        # Пагинация: 6 элементов на страницу (сетка 3x2)
+        paginator = Paginator(medications, 6)
+        page_number = request.GET.get('page', 1)
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+        context['medications'] = page_obj  # для обратной совместимости с шаблоном
         template = 'users/catalog.html'
 
     elif section == 'search':
