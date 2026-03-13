@@ -132,7 +132,7 @@ class UserProfileForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'phone', 'snils')
+        fields = ('first_name', 'last_name', 'email', 'phone', 'snils', 'city')
         widgets = {
             'first_name': forms.TextInput(attrs={
                 'placeholder': 'Иван',
@@ -153,6 +153,10 @@ class UserProfileForm(UserChangeForm):
             'snils': forms.TextInput(attrs={
                 'placeholder': '123-456-789 00',
                 'id': 'snils'
+            }),
+            'city': forms.TextInput(attrs={
+                'placeholder': 'Рязань',
+                'id': 'city'
             }),
         }
 

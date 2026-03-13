@@ -9,7 +9,7 @@
 
         <!-- Навигация для всех пользователей -->
         <nav class="main-nav">
-            <a href="#" class="nav-link">
+            <a href="{% url 'users:search_user_medications' %}" class="nav-link">
                     <i class="fas fa-tablets"></i> Поиск лекарств в других аптечках
                 </a>
             {% if user.is_authenticated %}

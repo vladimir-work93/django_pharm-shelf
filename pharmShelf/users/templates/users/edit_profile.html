@@ -99,6 +99,17 @@
                 </div>
 
                 <div class="input-group">
+                    <label for="{{ form.city.id_for_label }}">Город</label>
+                    <div class="input-with-icon">
+                        <i class="fa fa-plane input-icon"></i>
+                        {{ form.city }}
+                    </div>
+                    {% if form.city.errors %}
+                        <small class="input-hint error">{{ form.city.errors.0 }}</small>
+                    {% endif %}
+                </div>
+
+                <div class="input-group">
                     <label>Пароль</label>
                     <div class="input-with-icon">
                         <i class="fas fa-key input-icon"></i>

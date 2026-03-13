@@ -45,6 +45,18 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class User(AbstractUser):
+    first_name = models.CharField(
+        verbose_name='Имя',
+        max_length=20,
+        blank=True
+    )
+
+    last_name = models.CharField(
+        verbose_name='Фамилия',
+        max_length=40,
+        blank=True
+    )
+
     phone_validator = RegexValidator(
         regex=r'^\+7\d{10}$',
         message='Телефон должен быть в формате: +79991234567'
@@ -88,6 +100,14 @@ class User(AbstractUser):
         help_text='Формат: ХХХ-ХХХ-ХХХ ХХ',  # Подсказка для пользователя
         default='000-000-000 00',  # Значение по умолчанию
         validators=[snils_validator],
+    )
+
+    city = models.CharField(
+        max_length=100,
+        verbose_name='Город',
+        blank=False,
+        null=False,
+        help_text='Ваш город',
     )
 
     USERNAME_FIELD = 'email' # Замена поля аутентификации на email

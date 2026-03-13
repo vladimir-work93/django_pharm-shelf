@@ -156,6 +156,63 @@ def medication_delete_view(request, pk):
         'med_item': med_item
     })
 
+
+@login_required
+def search_user_medications_view(request):
+    """
+    Поиск лекарств среди всех пользователей
+    """
+    # Базовый запрос: все лекарства пользователей, доступные для поиска
+    medications = UserMedication.objects.filter(
+        is_searchable=True  # Только те, что разрешены для поиска
+    ).select_related(
+        'user',
+        'medication',
+        'medication__manufacturer'
+    ).order_by('-added_at')
+
+    # Поиск по названию лекарства
+    search_query = request.GET.get('search', '')
+    if search_query:
+        medications = medications.filter(
+            Q(medication__name__icontains=search_query) |
+            Q(medication__name__icontains=search_query.lower()) |
+            Q(medication__name__icontains=search_query.upper()) |
+            Q(medication__name__icontains=search_query.capitalize())
+        ).distinct()
+
+    # Сортировка
+    sort_by = request.GET.get('sort', 'date')
+    sort_direction = request.GET.get('direction', 'desc')
+
+    sort_field_map = {
+        'name': 'medication__name',
+        'user': 'user__email',
+        'date': 'added_at',
+        'expiry': 'expiry_date',
+    }
+
+    sort_field = sort_field_map.get(sort_by, 'added_at')
+    if sort_direction == 'desc':
+        sort_field = f'-{sort_field}'
+
+    medications = medications.order_by(sort_field)
+
+    # Пагинация
+    paginator = Paginator(medications, 10)  # 10 элементов на страницу
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj,
+        'medications': page_obj,
+        'search_query': search_query,
+        'current_sort': sort_by,
+        'current_direction': sort_direction,
+    }
+
+    return render(request, 'users/search_user_medications.html', context)
+
 @login_required
 def profile_section(request, section):
     """
@@ -282,6 +339,9 @@ def profile_section(request, section):
         context['page_obj'] = page_obj
         context['medications'] = page_obj  # для обратной совместимости с шаблоном
         template = 'users/catalog.html'
+
+    elif section == 'search_user_medications':
+        search_user_medications_view(request)
 
     else:
         template = 'users/my_profile.html'

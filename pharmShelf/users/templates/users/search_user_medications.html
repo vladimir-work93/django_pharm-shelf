@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Поиск лекарств других пользователей{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/search_user_medications.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <h1 class="profile-title">Поиск лекарств других пользователей</h1>
+        <p class="profile-subtitle">Здесь вы можете найти лекарства, которыми поделились другие пользователи</p>
+    </div>
+
+    <div class="search-section">
+        <form method="get" class="search-form">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text"
+                       name="search"
+                       class="search-input"
+                       placeholder="Поиск по названию лекарства..."
+                       value="{{ search_query }}">
+                <button type="submit" class="search-btn">Найти</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="medicines-header">
+        <div class="results-info">
+            Найдено лекарств: <span>{{ page_obj.paginator.count }}</span>
+        </div>
+
+        <div class="medicines-sort">
+            <span class="sort-label"><i class="fas fa-sort"></i> Сортировать:</span>
+            <div class="sort-buttons">
+                <a href="?{% if search_query %}search={{ search_query }}&{% endif %}{% if city %}city={{ city }}&{% endif %}sort=name&direction={% if current_sort == 'name' and current_direction == 'asc' %}desc{% else %}asc{% endif %}" 
+                   class="sort-btn {% if current_sort == 'name' %}active{% endif %}">
+                    По названию
+                    {% if current_sort == 'name' %}
+                        <i class="fas fa-chevron-{% if current_direction == 'asc' %}up{% else %}down{% endif %}"></i>
+                    {% endif %}
+                </a>
+                <a href="?{% if search_query %}search={{ search_query }}&{% endif %}{% if city %}city={{ city }}&{% endif %}sort=user&direction={% if current_sort == 'user' and current_direction == 'asc' %}desc{% else %}asc{% endif %}" 
+                   class="sort-btn {% if current_sort == 'user' %}active{% endif %}">
+                    По пользователю
+                    {% if current_sort == 'user' %}
+                        <i class="fas fa-chevron-{% if current_direction == 'asc' %}up{% else %}down{% endif %}"></i>
+                    {% endif %}
+                </a>
+                <a href="?{% if search_query %}search={{ search_query }}&{% endif %}{% if city %}city={{ city }}&{% endif %}sort=date&direction={% if current_sort == 'date' and current_direction == 'desc' %}asc{% else %}desc{% endif %}" 
+                   class="sort-btn {% if current_sort == 'date' %}active{% endif %}">
+                    По дате добавления
+                    {% if current_sort == 'date' %}
+                        <i class="fas fa-chevron-{% if current_direction == 'desc' %}down{% else %}up{% endif %}"></i>
+                    {% endif %}
+                </a>
+                <a href="?{% if search_query %}search={{ search_query }}&{% endif %}{% if city %}city={{ city }}&{% endif %}sort=expiry&direction={% if current_sort == 'expiry' and current_direction == 'asc' %}desc{% else %}asc{% endif %}" 
+                   class="sort-btn {% if current_sort == 'expiry' %}active{% endif %}">
+                    По сроку годности
+                    {% if current_sort == 'expiry' %}
+                        <i class="fas fa-chevron-{% if current_direction == 'asc' %}up{% else %}down{% endif %}"></i>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="medicines-grid">
+        {% for med in medications %}
+        <div class="medicine-card {% if med.is_expired %}expired-card{% elif med.is_expiring_soon %}expiring-card{% endif %}">
+            <div class="medicine-info">
+                <div class="medicine-user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>{{ med.user.get_full_name|default:med.user.email }}</span>
+                    {% if med.user.city %}
+                    <span class="user-city"><i class="fas fa-map-marker-alt"></i> {{ med.user.city }}</span>
+                    {% endif %}
+                </div>
+                
+                <h4>{{ med.medication.name }}</h4>
+                <p class="medicine-type">{{ med.medication.get_type_display }}</p>
+                <p class="medicine-manufacturer">{{ med.medication.manufacturer.name }}</p>
+                
+                {% if med.medication.description %}
+                <p class="medicine-description">{{ med.medication.description|truncatechars:100 }}</p>
+                {% endif %}
+                
+                <div class="medicine-dates">
+                    <p><i class="far fa-calendar-alt"></i> Дата производства: {{ med.production_date|date:"d.m.Y"|default:"Не указана" }}</p>
+                    <p><i class="far fa-calendar-times"></i> Годен до: {{ med.expiry_date|date:"d.m.Y"|default:"Не указан" }}</p>
+                </div>
+                
+                <p class="medicine-expiry">
+                    {% if med.is_expired %}
+                    <span class="expired"><i class="fas fa-exclamation-triangle"></i> Просрочено</span>
+                    {% elif med.is_expiring_soon %}
+                    <span class="expiring-soon"><i class="fas fa-clock"></i> Скоро истекает</span>
+                    {% endif %}
+                </p>
+                
+                <p class="medicine-quantity">
+                    <i class="fas fa-pills"></i> Количество: {{ med.quantity }} шт.
+                </p>
+                
+                <p class="medicine-added">
+                    <i class="far fa-clock"></i> Добавлено: {{ med.added_at|date:"d.m.Y" }}
+                </p>
+            </div>
+            
+            <div class="medicine-actions">
+                <a href="#" class="btn-icon" title="Связаться с пользователем">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            <i class="fas fa-search fa-3x" style="color: #bdc3c7; margin-bottom: 20px;"></i>
+            <p>Лекарства не найдены</p>
+            {% if search_query or city %}
+            <p>Попробуйте изменить параметры поиска</p>
+            <a href="{% url 'users:search_user_medications' %}" class="btn btn-primary">
+                Сбросить фильтры
+            </a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if page_obj.has_other_pages %}
+    <div class="pagination">
+        <div class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}{% if city %}&city={{ city }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_direction %}&direction={{ current_direction }}{% endif %}">
+                    <i class="fas fa-angle-double-left"></i>
+                </a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if city %}&city={{ city }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_direction %}&direction={{ current_direction }}{% endif %}">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <span class="current">{{ num }}</span>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a href="?page={{ num }}{% if search_query %}&search={{ search_query }}{% endif %}{% if city %}&city={{ city }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_direction %}&direction={{ current_direction }}{% endif %}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if city %}&city={{ city }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_direction %}&direction={{ current_direction }}{% endif %}">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}{% if city %}&city={{ city }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_direction %}&direction={{ current_direction }}{% endif %}">
+                    <i class="fas fa-angle-double-right"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
