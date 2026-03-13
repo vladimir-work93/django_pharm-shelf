@@ -263,6 +263,18 @@ def profile_section(request, section):
         # Получаем все лекарства из каталога
         medications = Medication.objects.select_related('manufacturer').all()
 
+        # Поиск по названию лекарства (регистронезависимый)
+        search_query = request.GET.get('search', '')
+        if search_query:
+            # Создаем запрос с разными вариантами регистра
+            medications = medications.filter(
+                Q(name__icontains=search_query) |
+                Q(name__icontains=search_query.lower()) |
+                Q(name__icontains=search_query.upper()) |
+                Q(name__icontains=search_query.capitalize())
+            ).distinct()
+        context['search_query'] = search_query
+
         # Пагинация: 6 элементов на страницу (сетка 3x2)
         paginator = Paginator(medications, 6)
         page_number = request.GET.get('page', 1)
@@ -270,18 +282,6 @@ def profile_section(request, section):
         context['page_obj'] = page_obj
         context['medications'] = page_obj  # для обратной совместимости с шаблоном
         template = 'users/catalog.html'
-
-    elif section == 'search':
-        query = request.GET.get('q', '')
-        if query:
-            # Здесь тоже можно применить тот же подход для единообразия
-            query_lower = query.lower()
-            context['results'] = Medication.objects.filter(
-                name__icontains=query_lower
-            ).exclude(
-                usermedication__user=request.user
-            ).distinct()[:20]
-        template = 'users/search.html'
 
     else:
         template = 'users/my_profile.html'

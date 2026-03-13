@@ -5,13 +5,13 @@
 {% endblock %}
 
 <div class="search-bar-container">
-    <form method="get" action="{% url 'users:profile_section' 'my_medicines' %}" class="search-form">
+    <form method="get" action="{% url 'users:profile_section' section %}" class="search-form">
         <div class="search-wrapper">
             <i class="fas fa-search"></i>
             <input type="text"
                    name="search"
                    class="search-input"
-                   placeholder="Поиск в моей аптечке..."
+                   placeholder="Поиск по разделу..."
                    value="{{ search_query }}"
                    autocomplete="off">
             {% if current_sort %}
