@@ -70,52 +70,63 @@
 
     <div class="medicines-grid">
         {% for med in medications %}
-        <div class="medicine-card {% if med.is_expired %}expired-card{% elif med.is_expiring_soon %}expiring-card{% endif %}">
-            <div class="medicine-info">
-                <div class="medicine-user-info">
-                    <i class="fas fa-user-circle"></i>
-                    <span>{{ med.user.get_full_name|default:med.user.email }}</span>
-                    {% if med.user.city %}
-                    <span class="user-city"><i class="fas fa-map-marker-alt"></i> {{ med.user.city }}</span>
-                    {% endif %}
-                </div>
-                
-                <h4>{{ med.medication.name }}</h4>
-                <p class="medicine-type">{{ med.medication.get_type_display }}</p>
-                <p class="medicine-manufacturer">{{ med.medication.manufacturer.name }}</p>
-                
-                {% if med.medication.description %}
-                <p class="medicine-description">{{ med.medication.description|truncatechars:100 }}</p>
+
+        <div class="medicine-card {% if med.is_expired %}expired-card{% elif med.is_expiring_soon %}expiring-card{% endif %}" >
+            <!-- Первая колонка - изображение -->
+            <div class="medicine-image">
+                {% if med.medication.image_url %}
+                    <img src="{{ med.medication.image_url.url }}" alt="{{ med.medication.name }}">
+                {% else %}
+                    <div class="no-image">
+                        <i class="fas fa-pills"></i>
+                    </div>
                 {% endif %}
-                
-                <div class="medicine-dates">
-                    <p><i class="far fa-calendar-alt"></i> Дата производства: {{ med.production_date|date:"d.m.Y"|default:"Не указана" }}</p>
-                    <p><i class="far fa-calendar-times"></i> Годен до: {{ med.expiry_date|date:"d.m.Y"|default:"Не указан" }}</p>
-                </div>
-                
+            </div>
+
+            <!-- Вторая колонка - информация -->
+            <div class="medicine-info">
+                <h4>{{ med.medication.name }}</h4>
+                <p class="medicine-type">{{ medicine.medication.type }}</p>
+                <p class="medicine-manufacturer">
+                    <i class="fas fa-industry" style="margin-right: 5px;"></i>
+                    {{ med.medication.manufacturer.name }}, {{ med.medication.manufacturer.country }}
+                </p>
+
+                {% if med.medication.description %}
+                    <p class="medicine-description">{{ med.medication.description|truncatechars:100 }}</p>
+                {% endif %}
+
+                <p class="medicine-dates">
+                    <strong>Произведено:</strong> {{ med.production_date|date:"d.m.Y" }}<br>
+                    <strong>Годен до:</strong> {{ med.expiry_date|date:"d.m.Y" }}
+                </p>
+
                 <p class="medicine-expiry">
                     {% if med.is_expired %}
-                    <span class="expired"><i class="fas fa-exclamation-triangle"></i> Просрочено</span>
+                        <span class="expired"><i class="fas fa-exclamation-circle"></i> Просрочено!</span>
                     {% elif med.is_expiring_soon %}
-                    <span class="expiring-soon"><i class="fas fa-clock"></i> Скоро истекает</span>
+                        <span class="expiring-soon"><i class="fas fa-clock"></i> Скоро истекает!</span>
                     {% endif %}
                 </p>
-                
+
                 <p class="medicine-quantity">
-                    <i class="fas fa-pills"></i> Количество: {{ med.quantity }} шт.
+                    <i class="fas fa-boxes"></i> Количество: {{ med.quantity }} шт.
                 </p>
-                
+
                 <p class="medicine-added">
                     <i class="far fa-clock"></i> Добавлено: {{ med.added_at|date:"d.m.Y" }}
                 </p>
+
             </div>
-            
+
+            <!-- Третья колонка - действия -->
             <div class="medicine-actions">
                 <a href="#" class="btn-icon" title="Связаться с пользователем">
                     <i class="fas fa-envelope"></i>
                 </a>
             </div>
         </div>
+
         {% empty %}
         <div class="empty-state">
             <i class="fas fa-search fa-3x" style="color: #bdc3c7; margin-bottom: 20px;"></i>

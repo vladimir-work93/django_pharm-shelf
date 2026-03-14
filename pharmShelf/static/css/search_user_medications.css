@@ -197,6 +197,36 @@
 }
 
 /* Сетка с карточками */
+.medicine-image {
+    display: flex;
+    align-items: center;
+}
+
+.medicine-image img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    background: white;
+    padding: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.medicine-image .no-image {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Квадратный контейнер */
+    max-width: 120px;
+    border-radius: 8px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bdc3c7;
+    font-size: 32px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
 .medicines-grid {
     display: grid;
     gap: 20px;
@@ -206,11 +236,13 @@
     background: #f8fafc;
     border-radius: 12px;
     padding: 20px;
-    display: flex;
+    display: grid;
     justify-content: space-between;
     align-items: flex-start;
     transition: all 0.3s ease;
     border-left: 4px solid transparent;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .medicine-card:hover {
@@ -363,6 +395,7 @@
     display: flex;
     gap: 8px;
     margin-left: 15px;
+    justify-content: end;
 }
 
 .btn-icon {
