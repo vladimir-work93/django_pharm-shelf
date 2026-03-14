@@ -67,57 +67,96 @@
     <div class="medicines-grid" id="medicines-list">
         {% for medicine in page_obj %}
         <div class="medicine-card">
+            <!-- Первая колонка - изображение -->
+            <div class="medicine-image">
+                {% if medicine.medication.image_url %}
+                    <img src="{{ medicine.medication.image_url.url }}" alt="{{ medicine.medication.name }}">
+                {% else %}
+                    <div class="no-image">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Вторая колонка - информация -->
             <div class="medicine-info">
                 <h4>{{ medicine.medication.name }}</h4>
                 <p class="medicine-type">{{ medicine.medication.type }}</p>
                 <p class="medicine-manufacturer">
-                    Производитель: {{ medicine.medication.manufacturer.name }}, {{ medicine.medication.manufacturer.country }}
+                    <i class="fas fa-industry" style="margin-right: 5px;"></i>
+                    {{ medicine.medication.manufacturer.name }}, {{ medicine.medication.manufacturer.country }}
                 </p>
-                <p class="medicine-description">{{ medicine.medication.description|truncatechars:100 }}</p>
+
+                {% if medicine.medication.description %}
+                    <p class="medicine-description">{{ medicine.medication.description|truncatechars:100 }}</p>
+                {% endif %}
+
                 <p class="medicine-dates">
-                    Произведено: {{ medicine.production_date|date:"d.m.Y" }}<br>
-                    Годен до: {{ medicine.expiry_date|date:"d.m.Y" }}
+                    <strong>Произведено:</strong> {{ medicine.production_date|date:"d.m.Y" }}<br>
+                    <strong>Годен до:</strong> {{ medicine.expiry_date|date:"d.m.Y" }}
                 </p>
-                <p class="medicine-expiry {% if medicine.is_expiring_soon %}warning{% endif %}">
+
+                <p class="medicine-expiry">
                     {% if medicine.is_expired %}
-                        <span class="expired">Просрочено!</span>
+                        <span class="expired"><i class="fas fa-exclamation-circle"></i> Просрочено!</span>
                     {% elif medicine.is_expiring_soon %}
-                        <span class="expiring-soon">Скоро истекает!</span>
+                        <span class="expiring-soon"><i class="fas fa-clock"></i> Скоро истекает!</span>
                     {% endif %}
                 </p>
-                <p class="medicine-quantity">Количество: {{ medicine.quantity }} шт.</p>
-                {% if medicine.is_searchable %}
-                    <p class="medicine-searchable">✓ Доступно для поиска</p>
-                {% else %}
-                    <p class="medicine-searchable">- Недоступно для поиска</p>
-                {% endif %}
+
+                <p class="medicine-quantity">
+                    <i class="fas fa-boxes"></i> Количество: {{ medicine.quantity }} шт.
+                </p>
+
+                <p class="medicine-searchable">
+                    {% if medicine.is_searchable %}
+                        <span class="available"><i class="fas fa-check-circle"></i> Доступно для поиска</span>
+                    {% else %}
+                        <span class="unavailable"><i class="fas fa-times-circle"></i> Недоступно для поиска</span>
+                    {% endif %}
+                </p>
             </div>
+
+            <!-- Третья колонка - действия -->
             <div class="medicine-actions">
-                <a href="{% url 'users:medication_edit' medicine.id %}" class="btn-icon">
+                <!-- Кнопка "Сделать доступным для поиска" (прямоугольная, внизу колонки) -->
+                {% if medicine.is_expiring_soon and not medicine.is_searchable %}
+                    <form method="post" style="width: 100%">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-searchable">
+                            <i class="fas fa-search"></i> Сделать доступным для поиска
+                        </button>
+                    </form>
+                {% endif %}
+
+                <a href="{% url 'users:medication_edit' medicine.id %}" class="btn-icon" title="Редактировать">
                     <i class="fas fa-edit"></i>
                 </a>
+
                 <form method="post" action="{% url 'users:medication_delete' medicine.id %}" style="display: inline;">
                     {% csrf_token %}
-                    <button type="submit" class="btn-icon delete-medicine" onclick="return confirm('Вы уверены, что хотите удалить это лекарство из аптечки?');">
+                    <button type="submit" class="btn-icon delete-medicine" onclick="return confirm('Вы уверены, что хотите удалить это лекарство из аптечки?');" title="Удалить">
                         <i class="fas fa-trash"></i>
                     </button>
                 </form>
+
+
             </div>
         </div>
         {% empty %}
-        <div class="empty-state">
-            {% if search_query %}
-                <p>По запросу "{{ search_query }}" ничего не найдено</p>
-                <a href="{% url 'users:profile_section' 'my_medicines' %}" class="btn btn-secondary">
-                    <i class="fas fa-times"></i> Сбросить поиск
-                </a>
-            {% else %}
-                <p>В вашей аптечке пока нет лекарств</p>
-                <a href="{% url 'users:profile_section' 'catalog' %}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Перейти в каталог
-                </a>
-            {% endif %}
-        </div>
+            <div class="empty-state">
+                {% if search_query %}
+                    <p>По запросу "{{ search_query }}" ничего не найдено</p>
+                    <a href="{% url 'users:profile_section' 'my_medicines' %}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Сбросить поиск
+                    </a>
+                {% else %}
+                    <p>В вашей аптечке пока нет лекарств</p>
+                    <a href="{% url 'users:profile_section' 'catalog' %}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Перейти в каталог
+                    </a>
+                {% endif %}
+            </div>
         {% endfor %}
     </div>
 

@@ -138,6 +138,36 @@
     color: #2c3e50;
 }
 
+/* Кнопка "Сделать доступным для поиска" */
+.medicine-actions .btn-searchable {
+    width: 100%;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 8px;
+    background: #3498db;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(52, 152, 219, 0.3);
+}
+
+.medicine-actions .btn-searchable:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+}
+
+.medicine-actions .btn-searchable i {
+    font-size: 1rem;
+}
+
 /* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
     .medicines-header {
@@ -169,14 +199,58 @@
     background: #f8fafc;
     border-radius: 12px;
     padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Три равные колонки */
+    gap: 20px;
     transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .medicine-card:hover {
     background: #f0f7ff;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.15);
+}
+
+/* Первая колонка - изображение */
+.medicine-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.medicine-image img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    background: white;
+    padding: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.medicine-image .no-image {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Квадратный контейнер */
+    max-width: 120px;
+    border-radius: 8px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bdc3c7;
+    font-size: 32px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Вторая колонка - информация */
+.medicine-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0; /* Для корректного усечения текста */
 }
 
 .medicine-info h4 {
@@ -253,10 +327,41 @@
     margin-top: 5px !important;
 }
 
+/* Третья колонка - действия */
 .medicine-actions {
     display: flex;
     gap: 8px;
-    margin-left: 15px;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.medicine-actions .btn-icon {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    color: #7f8c8d;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.medicine-actions .btn-icon:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+.medicine-actions .delete-medicine:hover {
+    background: #e74c3c !important;
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
 }
 
 .btn-icon {
@@ -295,4 +400,73 @@
     color: #7f8c8d;
     margin-bottom: 20px;
     font-size: 1.1rem;
+}
+
+/* Кнопка "Сделать доступным для поиска" */
+.medicine-actions .btn-searchable {
+    width: 100%;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 8px;
+    background: #3498db;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(52, 152, 219, 0.3);
+}
+
+.medicine-actions .btn-searchable:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .medicine-card {
+        grid-template-columns: 1fr; /* На мобильных одна колонка */
+        gap: 15px;
+    }
+
+    .medicine-image {
+        justify-content: flex-start;
+    }
+
+    .medicine-image img,
+    .medicine-image .no-image {
+        max-height: 100px;
+    }
+
+    .medicine-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #e0e6eb;
+        height: auto;
+    }
+
+    .medicine-actions .btn-searchable {
+        width: auto;
+        margin-top: 0;
+        order: -1; /* Показываем первой на мобильных */
+    }
+}
+
+@media (max-width: 480px) {
+    .medicine-actions {
+        justify-content: flex-start;
+    }
+
+    .medicine-actions .btn-searchable {
+        width: 100%;
+    }
 }
