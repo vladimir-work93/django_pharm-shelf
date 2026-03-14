@@ -161,7 +161,6 @@ def medication_delete_view(request, pk):
         'med_item': med_item
     })
 
-
 @login_required
 def make_medication_searchable(request, pk):
     """
@@ -187,7 +186,11 @@ def search_user_medications_view(request):
     """
     # Базовый запрос: все лекарства пользователей, доступные для поиска
     medications = UserMedication.objects.filter(
-        is_searchable=True  # Только те, что разрешены для поиска
+        is_searchable=True,  # Только те, что разрешены для поиска
+        user__isnull = False  # Если нужно проверить, что пользователь существует
+    ).exclude(
+        user=request.user,  # Исключаем лекарства текущего пользователя
+
     ).select_related(
         'user',
         'medication',
