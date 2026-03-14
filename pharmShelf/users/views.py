@@ -20,6 +20,11 @@ from django.db.models import Q
 # Create your views here.
 
 def login_view(request):
+    # Проверяем, авторизован ли пользователь
+    if request.user.is_authenticated:
+        # Если авторизован, перенаправляем на страницу профиля с разделом my_medicines
+        return redirect('users:profile_section', section='my_medicines')
+
     if request.method == 'POST':
         data = request.POST
         form = UserLoginForm(data=data)
@@ -176,7 +181,6 @@ def make_medication_searchable(request, pk):
     # Перенаправляем обратно на страницу со списком лекарств
     return redirect('users:profile_section', section='my_medicines')
 
-@login_required
 def search_user_medications_view(request):
     """
     Поиск лекарств среди всех пользователей
