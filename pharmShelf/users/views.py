@@ -158,6 +158,25 @@ def medication_delete_view(request, pk):
 
 
 @login_required
+def make_medication_searchable(request, pk):
+    """
+    Делает лекарство доступным для поиска
+    """
+    # Получаем лекарство пользователя, проверяем что оно принадлежит текущему пользователю
+    medication = get_object_or_404(UserMedication, pk=pk, user=request.user)
+
+    # Проверяем условие: только если скоро истекает и еще не доступно для поиска
+    if medication.is_expiring_soon and not medication.is_searchable:
+        medication.is_searchable = True
+        medication.save()
+        messages.success(request, f'Лекарство "{medication.medication.name}" теперь доступно для поиска.')
+    else:
+        messages.error(request, 'Нельзя сделать это лекарство доступным для поиска.')
+
+    # Перенаправляем обратно на страницу со списком лекарств
+    return redirect('users:profile_section', section='my_medicines')
+
+@login_required
 def search_user_medications_view(request):
     """
     Поиск лекарств среди всех пользователей

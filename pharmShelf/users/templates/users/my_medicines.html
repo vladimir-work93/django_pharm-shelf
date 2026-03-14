@@ -121,7 +121,7 @@
             <div class="medicine-actions">
                 <!-- Кнопка "Сделать доступным для поиска" (прямоугольная, внизу колонки) -->
                 {% if medicine.is_expiring_soon and not medicine.is_searchable %}
-                    <form method="post" style="width: 100%">
+                    <form method="post" action="{% url 'users:medication_make_searchable' medicine.id %}">
                         {% csrf_token %}
                         <button type="submit" class="btn-searchable">
                             <i class="fas fa-search"></i> Сделать доступным для поиска

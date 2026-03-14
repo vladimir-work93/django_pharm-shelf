@@ -358,6 +358,7 @@ input:focus {
     border: 1px solid #f5c6cb;
     color: #721c24;
     font-size: 14px;
+    text-align: center;
 }
 
 .success {

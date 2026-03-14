@@ -18,6 +18,7 @@ urlpatterns = [
 
     path('medication/<int:pk>/edit/', views.medication_edit_view, name='medication_edit'),
     path('medication/<int:pk>/delete/', views.medication_delete_view, name='medication_delete'),
+    path('medication/<int:pk>/make-searchable/', views.make_medication_searchable, name='medication_make_searchable'),
 
     path('search-medications/', views.search_user_medications_view, name='search_user_medications'),
 
