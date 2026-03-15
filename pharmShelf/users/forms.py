@@ -70,6 +70,14 @@ class UserRegisterForm(UserCreationForm):
             'placeholder': '123-456-789 00'
         })
     )
+    city = forms.CharField(
+        label='Город',
+        widget=forms.TextInput(attrs={
+            'id': 'city',
+            'name': 'city',
+            'placeholder': 'Введите Ваш город пребывания'
+        })
+    )
     password1 = forms.CharField(
         label='Пароль-1',
         widget=forms.PasswordInput(attrs={
@@ -88,7 +96,7 @@ class UserRegisterForm(UserCreationForm):
     )
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'phone', 'snils', 'password1', 'password2')
+        fields = ('first_name', 'last_name', 'email', 'phone', 'snils', 'city', 'password1', 'password2')
 
 class UserProfileForm(UserChangeForm):
     """Редактирование профиля"""

@@ -188,10 +188,12 @@ def search_user_medications_view(request):
     medications = UserMedication.objects.filter(
         is_searchable=True,  # Только те, что разрешены для поиска
         user__isnull = False  # Если нужно проверить, что пользователь существует
-    ).exclude(
-        user=request.user,  # Исключаем лекарства текущего пользователя
+    )
+    # Исключаем лекарства текущего пользователя только если он авторизован
+    if request.user.is_authenticated:
+        medications = medications.exclude(user=request.user)
 
-    ).select_related(
+    medications = medications.select_related(
         'user',
         'medication',
         'medication__manufacturer'

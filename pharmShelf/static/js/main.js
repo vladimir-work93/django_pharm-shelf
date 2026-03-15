@@ -1,7 +1,6 @@
 // main.js - JavaScript для главной страницы
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Главная страница "Аптечная полка" загружена');
 
     // Плавная прокрутка для навигационных ссылок
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -17,29 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     top: targetElement.offsetTop - 80, // Учитываем высоту header
                     behavior: 'smooth'
                 });
-            }
-        });
-    });
-
-    // Подсветка активного раздела при прокрутке
-    const sections = document.querySelectorAll('section[id]');
-
-    window.addEventListener('scroll', function() {
-        let current = '';
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-
-            if (scrollY >= (sectionTop - 100)) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
             }
         });
     });

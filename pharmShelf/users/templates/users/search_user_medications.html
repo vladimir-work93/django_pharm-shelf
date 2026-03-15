@@ -121,6 +121,10 @@
 
             <!-- Третья колонка - действия -->
             <div class="medicine-actions">
+                <p class="map-icon" title="Местонахождение">
+                    <i class="fa fa-map-marker"></i>
+                    {{ med.user.city|default:"Город не указан" }}
+                </p>
                 <a href="#" class="btn-icon" title="Связаться с пользователем">
                     <i class="fas fa-envelope"></i>
                 </a>
