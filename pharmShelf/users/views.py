@@ -11,7 +11,7 @@ from django.urls import reverse_lazy
 
 from .forms import UserLoginForm, UserRegisterForm, UserProfileForm, UserMedicationForm
 
-from .models import UserMedication
+from .models import UserMedication, User
 from main.models import Medication
 
 from django.db.models import Q

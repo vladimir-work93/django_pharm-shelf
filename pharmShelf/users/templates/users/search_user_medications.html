@@ -122,12 +122,14 @@
             <!-- Третья колонка - действия -->
             <div class="medicine-actions">
                 <p class="map-icon" title="Местонахождение">
-                    <i class="fa fa-map-marker"></i>
+                    <i class="fas fa-map-marker"></i>
                     {{ med.user.city|default:"Город не указан" }}
+                <p class="contact-item" title="Телефон">
+                    <i class="fas fa-phone-alt"></i>
+                    <a href="tel:{{ med.user.phone }}" class="phone-link">
+                        {{ med.user.phone }}
+                    </a>
                 </p>
-                <a href="#" class="btn-icon" title="Связаться с пользователем">
-                    <i class="fas fa-envelope"></i>
-                </a>
             </div>
         </div>
 

@@ -119,7 +119,7 @@
 
             <!-- Третья колонка - действия -->
             <div class="medicine-actions">
-                <!-- Кнопка "Сделать доступным для поиска" (прямоугольная, внизу колонки) -->
+                <!-- Кнопка "Сделать доступным для поиска" -->
                 {% if medicine.is_expiring_soon and not medicine.is_searchable %}
                     <form method="post" action="{% url 'users:medication_make_searchable' medicine.id %}">
                         {% csrf_token %}
