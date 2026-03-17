@@ -123,7 +123,9 @@
             <div class="medicine-actions">
                 <p class="map-icon" title="Местонахождение">
                     <i class="fas fa-map-marker"></i>
-                    {{ med.user.city|default:"Город не указан" }}
+                    <a href="#" class="map-city">
+                        {{ med.user.city|default:"Город не указан" }}
+                    </a>
                 <p class="contact-item" title="Телефон">
                     <i class="fas fa-phone-alt"></i>
                     <a href="tel:{{ med.user.phone }}" class="phone-link">

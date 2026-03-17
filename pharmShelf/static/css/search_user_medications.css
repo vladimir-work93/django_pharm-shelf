@@ -411,6 +411,12 @@
     justify-content: flex-end;
     text-decoration: none;
     pointer-events: none;
+    gap: 8px;
+}
+
+.map-city {
+    font-weight: 500;
+    color: #27ae60;
 }
 
 .btn-icon {
@@ -651,6 +657,13 @@
     color: #3498db;
     font-size: 1rem;
     flex-shrink: 0; /* Запрещаем сжиматься иконке */
+}
+
+.map-icon i {
+    width: 18px;
+    color: #3498db;
+    font-size: 1rem;
+    flex-shrink: 0;
 }
 
 .phone-link {
