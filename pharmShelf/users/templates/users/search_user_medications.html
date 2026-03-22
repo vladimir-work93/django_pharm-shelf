@@ -126,13 +126,25 @@
                     <a href="#" class="map-city">
                         {{ med.user.city|default:"Город не указан" }}
                     </a>
-                <p class="contact-item" title="Телефон">
-                    <i class="fas fa-phone-alt"></i>
-                    <a href="tel:{{ med.user.phone }}" class="phone-link">
-                        {{ med.user.phone }}
-                    </a>
                 </p>
+
+                {% if user.is_authenticated %}
+                    <p class="contact-item" title="Телефон">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:{{ med.user.phone }}" class="phone-link">
+                            {{ med.user.phone }}
+                        </a>
+                    </p>
+                {% else %}
+                    <p class="contact-item" title="Телефон">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="{% url 'users:login' %}" class="phone-link">
+                            Авторизоваться
+                        </a>
+                    </p>
+                {% endif %}
             </div>
+
         </div>
 
         {% empty %}
