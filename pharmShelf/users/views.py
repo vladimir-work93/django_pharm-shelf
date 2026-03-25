@@ -52,8 +52,6 @@ def register_view(request):
             form.save()
             messages.success(request, message='Вы успешно зарегистрировались!')
             return redirect('users:login')
-        else:
-            print(form.errors)
     else:
         form = UserRegisterForm()
 
